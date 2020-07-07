@@ -121,7 +121,7 @@ def stream_inference(opt):
         prefetch_dataset,
         batch_size=1,
         shuffle=False,
-        num_workers=0,
+        num_workers=opt.num_workers,
         pin_memory=False,
         drop_last=False,
         worker_init_fn=worker_init_fn)
