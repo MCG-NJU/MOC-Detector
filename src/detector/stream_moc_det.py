@@ -27,7 +27,6 @@ class MOCDetector(object):
             print('create rgb model')
             self.rgb_model_backbone, self.rgb_model_branch = create_inference_model(opt.arch, opt.branch_info, opt.head_conv, opt.K, flip_test=opt.flip_test)
             self.rgb_model_backbone, self.rgb_model_branch = load_inference_model(self.rgb_model_backbone, self.rgb_model_branch, opt.rgb_model)
-            print()
             self.rgb_model_backbone = DataParallel(
                 self.rgb_model_backbone, device_ids=[opt.gpus[0]],
                 chunk_sizes=[1]).to(opt.device)
@@ -170,6 +169,12 @@ class MOCDetector(object):
                 detections[i, :, 2 * j + 1] = np.maximum(0, np.minimum(height - 1, detections[i, :, 2 * j + 1] / output_height * height))
             classes = detections[i, :, -1]
             # gather bbox for each class
+            # This code lost some precision which causes ～0.1 difference on frameAP. So we abandon it and just use for test speed.
+            # If you don't mind, please use it for development.
+            # for c in range(self.opt.num_classes):
+            #     inds = (classes == c)
+            #     top_preds[c + 1] = detections[i, inds, :4 * K + 1].astype(np.float32)
+            # results.append(top_preds)
             for c in range(self.opt.num_classes):
                 inds = (classes == c)
                 top_preds[c + 1] = np.concatenate([

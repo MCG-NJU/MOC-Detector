@@ -376,6 +376,8 @@ def videpAP_050_095(opt):
 
 if __name__ == "__main__":
     opt = opts().parse()
+    if not os.path.exists(os.path.join(opt.root_dir, 'result')):
+        os.system("mkdir -p '" + os.path.join(opt.root_dir, 'result') + "'")
     if opt.task == 'BuildTubes':
         BuildTubes(opt)
     elif opt.task == 'frameAP':
