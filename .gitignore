@@ -9,3 +9,4 @@ __pycache__/
 *.so
 _ext/
 speed_test.py
+test.sh
