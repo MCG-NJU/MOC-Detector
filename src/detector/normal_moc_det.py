@@ -131,22 +131,10 @@ class MOCDetector(object):
                 detections[i, :, 2 * j + 1] = np.maximum(0, np.minimum(height - 1, detections[i, :, 2 * j + 1] / output_height * height))
             classes = detections[i, :, -1]
             # gather bbox for each class
-            # This code lost some precision which causes ～0.1 difference on frameAP. So we abandon it.
-            # If you don't mind, please use it.
-            # for c in range(self.opt.num_classes):
-            #     inds = (classes == c)
-            #     top_preds[c + 1] = detections[i, inds, :4 * K + 1].astype(np.float32)
-            # results.append(top_preds)
             for c in range(self.opt.num_classes):
                 inds = (classes == c)
-                top_preds[c + 1] = np.concatenate([
-                    detections[i, inds, :4 * K].astype(np.float32),
-                    detections[i, inds, 4 * K:4 * K + 1].astype(np.float32)], axis=1).tolist()
+                top_preds[c + 1] = detections[i, inds, :4 * K + 1].astype(np.float32)
             results.append(top_preds)
-
-        for i in range(len(results)):
-            for j in range(1, self.num_classes + 1):
-                results[i][j] = np.array(results[i][j], dtype=np.float32).reshape(-1, self.opt.K * 4 + 1)
         return results
 
     def run(self, data):

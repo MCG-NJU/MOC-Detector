@@ -11,7 +11,7 @@ During inference, we use flip test to improve backbone feature discrimination fo
 |              with flip              |    78.01    |     82.81 \| 53.83 \| 29.59 \| 28.33     |
 |            without flip             |    77.46    |     82.40 \| 54.21 \| 29.38 \| 28.24     |
 
-However, flip test is still useful with only rgb input. So this is a trad-off between speed and accuracy.
+So this is a trad-off between speed and accuracy. If you don't care about ~0.5 precision, please abandon `--flip_test` for faster inference speed.
 
 <br/>
 
@@ -21,9 +21,11 @@ However, flip test is still useful with only rgb input. So this is a trad-off be
 
 This ablation study shows that increasing N will not improve the performance. For consistency we choose N=100 in our paper, but N >= 30 is enough.
 
+You can use a small N for faster 'Tubelet Linking'.
+
 The results use K=5 and only rgb as input on UCF. 
 
-More detials can be found in our **Supplementary Material**
+More detials can be found in our **Supplementary Material**.
 
 <br/>
 

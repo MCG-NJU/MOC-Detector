@@ -5,6 +5,7 @@
 *.pth
 data/*
 experiment/*
+result/*
 __pycache__/
 *.so
 _ext/
