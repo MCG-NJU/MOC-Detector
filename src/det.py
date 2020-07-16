@@ -31,6 +31,9 @@ if __name__ == '__main__':
         speed_inference_backbone(opt)
     elif opt.task == 'speed_branch':
         speed_inference_det(opt)
+    elif opt.task == 'speed_test':
+        from inference.speed_test import speed_test_stream_inference
+        speed_test_stream_inference(opt)
     else:
         raise NotImplementedError
     print('total_time: ', (time.time() - t1) / 60)

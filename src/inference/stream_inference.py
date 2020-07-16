@@ -30,8 +30,9 @@ def worker_init_fn(dump):
 
 
 class PrefetchDataset(torch.utils.data.Dataset):
-    def __init__(self, opt, dataset, pre_process_func):
-        self.pre_process_func = pre_process_func
+    def __init__(self, opt, dataset, pre_process, pre_process_single_frame):
+        self.pre_process = pre_process
+        self.pre_process_single_frame = pre_process_single_frame
         self.opt = opt
         self.vlist = dataset._test_videos[dataset.split - 1]
         self.gttubes = dataset._gttubes
@@ -50,6 +51,8 @@ class PrefetchDataset(torch.utils.data.Dataset):
                     self.indices += [(v, i)]
         self.img_buffer = []
         self.flow_buffer = []
+        self.img_buffer_flip = []
+        self.flow_buffer_flip = []
         self.last_video = -1
         self.last_frame = -1
 
@@ -73,26 +76,49 @@ class PrefetchDataset(torch.utils.data.Dataset):
         if video_tag == 0:
             if self.opt.rgb_model != '':
                 images = [cv2.imread(self.imagefile(v, frame + i)).astype(np.float32) for i in range(self.opt.K)]
-                self.img_buffer = images
-                images = self.pre_process_func(images)
+                images = self.pre_process(images)
+                if self.opt.flip_test:
+                    self.img_buffer = images[:self.opt.K]
+                    self.img_buffer_flip = images[self.opt.K:]
+                else:
+                    self.img_buffer = images
 
             if self.opt.flow_model != '':
                 flows = [cv2.imread(self.flowfile(v, min(frame + i, self.nframes[v]))).astype(np.float32) for i in range(self.opt.K + self.opt.ninput - 1)]
-                self.flow_buffer = flows
-                flows = self.pre_process_func(flows, is_flow=True, ninput=self.opt.ninput)
+                flows = self.pre_process(flows, is_flow=True, ninput=self.opt.ninput)
+
+                if self.opt.flip_test:
+                    self.flow_buffer = flows[:self.opt.K]
+                    self.flow_buffer_flip = flows[self.opt.K:]
+                else:
+                    self.flow_buffer = flows
 
         else:
             if self.opt.rgb_model != '':
                 image = cv2.imread(self.imagefile(v, frame + self.opt.K - 1)).astype(np.float32)
+                image, image_flip = self.pre_process_single_frame(image)
                 del self.img_buffer[0]
                 self.img_buffer.append(image)
-                images = self.pre_process_func(self.img_buffer)
+                if self.opt.flip_test:
+                    del self.img_buffer_flip[0]
+                    self.img_buffer_flip.append(image_flip)
+                    images = self.img_buffer + self.img_buffer_flip
+                else:
+                    images = self.img_buffer
 
             if self.opt.flow_model != '':
                 flow = cv2.imread(self.flowfile(v, min(frame + self.opt.K + self.opt.ninput - 2, self.nframes[v]))).astype(np.float32)
+                data_last_flip = self.flow_buffer_flip[-1] if self.opt.flip_test else None
+                data_last = self.flow_buffer[-1]
+                flow, flow_flip = self.pre_process_single_frame(flow, is_flow=True, ninput=self.opt.ninput, data_last=data_last, data_last_flip=data_last_flip)
                 del self.flow_buffer[0]
                 self.flow_buffer.append(flow)
-                flows = self.pre_process_func(self.flow_buffer, is_flow=True, ninput=self.opt.ninput)
+                if self.opt.flip_test:
+                    del self.flow_buffer_flip[0]
+                    self.flow_buffer_flip.append(flow_flip)
+                    flows = self.flow_buffer + self.flow_buffer_flip
+                else:
+                    flows = self.flow_buffer
 
         outfile = self.outfile(v, frame)
         if not os.path.isdir(os.path.dirname(outfile)):
@@ -116,7 +142,7 @@ def stream_inference(opt):
 
     dataset = Dataset(opt, 'test')
     detector = MOCDetector(opt)
-    prefetch_dataset = PrefetchDataset(opt, dataset, detector.pre_process)
+    prefetch_dataset = PrefetchDataset(opt, dataset, detector.pre_process, detector.pre_process_single_frame)
     data_loader = torch.utils.data.DataLoader(
         prefetch_dataset,
         batch_size=1,

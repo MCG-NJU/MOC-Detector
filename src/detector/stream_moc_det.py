@@ -88,6 +88,33 @@ class MOCDetector(object):
                 data[i + K] = ((data[i + K] / 255.) - mean) / std
         return data
 
+    def pre_process_single_frame(self, images, is_flow=False, ninput=1, data_last=None, data_last_flip=None):
+        images = cv2.resize(images, (self.opt.resize_height, self.opt.resize_width), interpolation=cv2.INTER_LINEAR)
+
+        data = np.empty((3 * ninput, self.opt.resize_height, self.opt.resize_width), dtype=np.float32)
+        data_flip = np.empty((3 * ninput, self.opt.resize_height, self.opt.resize_width), dtype=np.float32)
+
+        mean = np.array(self.opt.mean, dtype=np.float32)[:, None, None]
+        std = np.array(self.opt.std, dtype=np.float32)[:, None, None]
+        if not is_flow:
+            data = np.transpose(images, (2, 0, 1))
+            if self.opt.flip_test:
+                data_flip = np.transpose(images, (2, 0, 1))[:, :, ::-1]
+            data = ((data / 255.) - mean) / std
+            if self.opt.flip_test:
+                data_flip = ((data_flip / 255.) - mean) / std
+
+        else:
+            data[:3 * ninput - 3, :, :] = data_last[3:, :, :]
+            data[3 * ninput - 3:, :, :] = (np.transpose(images, (2, 0, 1)) / 255. - mean) / std
+            if self.opt.flip_test:
+                temp = images.copy()
+                temp = temp[:, ::-1, :]
+                temp[:, :, 2] = 255 - temp[:, :, 2]
+                data_flip[:3 * ninput - 3, :, :] = data_last_flip[3:, :, :]
+                data_flip[3 * ninput - 3:, :, :] = (np.transpose(temp, (2, 0, 1)) / 255. - mean) / std
+        return data, data_flip
+
     def process(self, images, flows, video_tag):
         with torch.no_grad():
             if self.rgb_model_backbone is not None:
