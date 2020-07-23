@@ -26,7 +26,7 @@ def create_inference_model(arch, branch_info, head_conv, K, flip_test=False):
     return backbone, branch
 
 
-def load_model(model, model_path, optimizer=None, lr=None):
+def load_model(model, model_path, optimizer=None, lr=None, ucf_pretrain=False):
     start_epoch = 0
     checkpoint = torch.load(model_path, map_location=lambda storage, loc: storage)
     print('loaded {}, epoch {}'.format(model_path, checkpoint['epoch']))
@@ -35,11 +35,13 @@ def load_model(model, model_path, optimizer=None, lr=None):
 
     # convert data_parallal to model
     for k in state_dict_:
+        if ucf_pretrain:
+            if k.startswith('branch.hm') or k.startswith('branch.mov'):
+                continue
         if k.startswith('module') and not k.startswith('module_list'):
             state_dict[k[7:]] = state_dict_[k]
         else:
             state_dict[k] = state_dict_[k]
-
     check_state_dict(model.state_dict(), state_dict)
     model.load_state_dict(state_dict, strict=False)
 

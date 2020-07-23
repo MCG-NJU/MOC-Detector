@@ -14,3 +14,5 @@ test.sh
 test2.sh
 test3.sh
 test.py
+speed_normal.py
+train_jhmdb_k7_ucf_pretrain.sh

@@ -70,6 +70,8 @@ class opts(object):
         # training settings
         self.parser.add_argument('--pretrain_model', default='coco',
                                  help='training pretrain_model, coco | imagenet')
+        self.parser.add_argument('--ucf_pretrain', action='store_true',
+                                 help='use ucf pretrain for jhmdb')
 
         self.parser.add_argument('--auto_stop', action='store_true',
                                  help='auto_stop when training, used for jhmdb')

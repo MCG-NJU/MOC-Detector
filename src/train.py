@@ -53,15 +53,16 @@ def main(opt):
     opt.device = torch.device('cuda' if opt.gpus[0] >= 0 else 'cpu')
 
     model = create_model(opt.arch, opt.branch_info, opt.head_conv, opt.K)
+    optimizer = torch.optim.Adam(model.parameters(), opt.lr)
+    start_epoch = opt.start_epoch
+
     if opt.pretrain_model == 'coco':
         model = load_coco_pretrained_model(opt, model)
     else:
         model = load_imagenet_pretrained_model(opt, model)
-    optimizer = torch.optim.Adam(model.parameters(), opt.lr)
-    start_epoch = opt.start_epoch
+
     if opt.load_model != '':
-        model, optimizer, _, _ = load_model(
-            model, opt.load_model, optimizer, opt.lr)
+        model, optimizer, _, _ = load_model(model, opt.load_model, optimizer, opt.lr, opt.ucf_pretrain)
 
     trainer = MOCTrainer(opt, model, optimizer)
     trainer.set_device(opt.gpus, opt.chunk_sizes, opt.device)
@@ -125,7 +126,7 @@ def main(opt):
             if opt.flow_model != '':
                 opt.flow_model = os.path.join(opt.flow_model, model_name)
             stream_inference(opt)
-            ap = frameAP(opt, print_info=False)
+            ap = frameAP(opt, print_info=opt.print_log)
             os.system("rm -rf tmp")
             if ap > best_ap:
                 best_ap = ap
@@ -138,6 +139,7 @@ def main(opt):
                     model, os.path.join(opt.save_dir, 'model_best.pth'), optimizer, opt.lr)
                 opt.lr = opt.lr * 0.1
                 logger.write('Drop LR to ' + str(opt.lr) + '\n')
+                print('Drop LR to ' + str(opt.lr))
                 print('load epoch is ', best_epoch)
                 for param_group in optimizer.param_groups:
                     param_group['lr'] = opt.lr
