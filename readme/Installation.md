@@ -28,7 +28,7 @@
    Disable cudnn batch normalization(follow [CenterNet](https://github.com/xingyizhou/pytorch-pose-hg-3d/issues/16)).
 
     ~~~powershell
-   # PYTORCH=/path/to/pytorch # usually ~/anaconda3/envs/CenterNet/lib/python3.5.2/site-packages/
+   # PYTORCH=/path/to/pytorch # usually ~/anaconda3/envs/MOC/lib/python3.5.2/site-packages/
    # for pytorch v0.4.1
    sed -i "1254s/torch\.backends\.cudnn\.enabled/False/g" ${PYTORCH}/torch/nn/functional.py
     ~~~
