@@ -9,7 +9,6 @@ result/*
 __pycache__/
 *.so
 _ext/
-speed_test.py
 test.sh
 test2.sh
 test3.sh
