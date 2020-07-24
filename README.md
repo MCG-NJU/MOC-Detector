@@ -13,9 +13,10 @@
 </div>
 <div align="center" style="width:image width px;">
   <img  src="image/run.gif" width=240>
-  <img  src="image/biking.gif" width=240>
+  <img  src="image/soccer.gif" width=240>
   <img  src="image/fencing_mutil.gif" width=240 >
 </div>
+
 
 
 *(Note that the relative low scores are due to the property of the focal loss.)*
@@ -27,6 +28,8 @@
 ## News & Updates
 
 Jul. 08, 2020 - First release of codes.
+
+Jul. 24, 2020 - Update ucf-pretrained JHMDB model and speed test codes.
 
 <br/>
 

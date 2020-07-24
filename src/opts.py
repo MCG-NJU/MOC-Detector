@@ -41,10 +41,10 @@ class opts(object):
 
         # system settings
         self.parser.add_argument('--gpus', default='0',
-                                 help='-1 for CPU, use comma for multiple gpus')
+                                 help='visible gpu list, use comma for multiple gpus')
         self.parser.add_argument('--num_workers', type=int, default=4,
                                  help='dataloader threads. 0 for single-thread.')
-        self.parser.add_argument('--batch_size', type=int, default=32,
+        self.parser.add_argument('--batch_size', type=int, default=16,
                                  help='batch size')
         self.parser.add_argument('--master_batch_size', type=int, default=-1,
                                  help='batch size on the master gpu.')

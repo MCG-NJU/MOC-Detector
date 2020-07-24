@@ -27,8 +27,10 @@ The training step will take a long time, we recommend to use `byobu` or `screen`
 run
 
 ```bash
-python3 train.py --K 7 --exp_id Train_K7_rgb_coco --rgb_model $PATH_TO_SAVE_MODEL --batch_size 63 --master_batch 7 --lr 5e-4 --gpus 0,1,2,3,4,5,6,7 --num_workers 16 --num_epochs 13 --lr_step 6,8 --save_all
+python3 train.py --K 7 --exp_id Train_K7_rgb_coco --rgb_model $PATH_TO_SAVE_MODEL --batch_size 63 --master_batch 7 --lr 5e-4 --gpus 0,1,2,3,4,5,6,7 --num_workers 16 --num_epochs 12 --lr_step 6,8 --save_all
 
+# ==============Args==============
+#
 # --K              input tubelet length, 7 by default
 # --exp_id         your experiment ID
 # --rgb_model      path to rgb model
@@ -121,6 +123,16 @@ python3 train.py --K 7 --exp_id Train_K7_flow_coco_jhmdb_s1 --flow_model $PATH_T
 It will save the model in `model_best.pth`.
 
 （This may surpass our original results.）
+
+<br/>
+
+<br/>
+
+If you want to reproduce our **ucf-pretrained** results in Supplementary Material, please add `--ucf_pretrain --load_model $PATH_TO_UCF_MODEL`.
+
+`$PATH_TO_UCF_MODEL` is the file path to `dla34_K7_rgb_coco.pth` (for rgb) and `dla34_K7_flow_coco.pth` (for flow).
+
+Also recommend using `--auto stop`.
 
 <br/>
 

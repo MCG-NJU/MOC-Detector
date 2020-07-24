@@ -20,6 +20,8 @@ Our experimental results are:
 | ucf_dla34_K7_flow_imagenet.pth |    ImageNet    |    68.90    |     77.30 \| 47.94 \| 19.41 \| 21.98     | [model](https://drive.google.com/file/d/1QHImtoMltmeIQOYWFYqkmJ0qZEfVpUe2/view?usp=sharing) |
 |     K7 RGB + FLOW ImageNet     |    ImageNet    |    76.92    |     81.26 \| 54.43 \| 29.49 \| 28.42     |                                                              |
 
+*Model name:  task\_(split)\_backbone_K?\_rgb\flow_pretrain.pth*
+
 <br/>
 
 #### JHMDB
@@ -39,13 +41,21 @@ Our experimental results are:
 |   hmdb_s2_dla34_K7_rgb_imagenet.pth    |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1HT20nEG3hYmJ2Cr37muBa45x8IpO-N0U/view?usp=sharing) |
 |   hmdb_s2_dla34_K7_flow_imagenet.pth   |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1eqgW_JcYwTIwaqL4phthG7bC99i7hZjq/view?usp=sharing) |
 |   hmdb_s2_dla34_K7_rgb_imagenet.pth    |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/15nvmbt19709MD37QZtaSnvL_2WlMfEoa/view?usp=sharing) |
-|   hmdb_s3_dla34_K7_flow_imagenet.pth   |    ImageNet    |     --      |                                          | [model](https://drive.google.com/file/d/1rDoE356pttM3NUxBHc9dr-FHQ8c66DR8/view?usp=sharing) |
+|   hmdb_s3_dla34_K7_flow_imagenet.pth   |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1rDoE356pttM3NUxBHc9dr-FHQ8c66DR8/view?usp=sharing) |
 | K7 RGB + FLOW ImageNet 3 split average |    ImageNet    |    67.95    |     76.23 \| 75.41 \| 68.46 \| 53.98     |                                                              |
 |                                        |                |             |                                          |                                                              |
+|   # *in our Supplementary Material*    |                |             |                                          |                                                              |
+|      hmdb_s1_dla34_K7_rgb_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1KTdadv32vWwhFP8rRKS4jT70eT-IfbxW/view?usp=sharing) |
+|     hmdb_s1_dla34_K7_flow_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1Zgdc-FEysYIEYAK7GpsPdoRtQ6KtUm4J/view?usp=sharing) |
+|      hmdb_s2_dla34_K7_rgb_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/15zYlIKncCcLkphFYHaPgxrK3J7f6euUx/view?usp=sharing) |
+|     hmdb_s2_dla34_K7_flow_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1v1uGeg-_V-OAUKVcv3V6Oxbuofu2F9aD/view?usp=sharing) |
+|      hmdb_s3_dla34_K7_rgb_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1d0HmeQ-rrniPsOD6On5t0AjY9ADEQYWT/view?usp=sharing) |
+|     hmdb_s3_dla34_K7_flow_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1EpOnT1ixebcmJbNeR6X8wmED2mf9dUAX/view?usp=sharing) |
+|   K7 RGB + FLOW UCF 3 split average    |      UCF       |    73.52    |     81.05 \| 80.92 \| 75.10 \| 60.65     |                                                              |
 
 All these models are available at our [Google drive](https://drive.google.com/drive/folders/1rQd79JjcQAfMxOJwXoCdh05ryOb-P1dm?usp=sharing)
 
-Copy models to ${MOC_ROOT}/experiment/result_model
+Copy models to ${MOC_ROOT}/experiment/result_models
 
 <br/>
 
@@ -61,6 +71,8 @@ python3 det.py --task normal --K 7 --gpus 0,1,2,3,4,5,6,7 --batch_size 94 --mast
 # handle remained chunk size
 python3 det.py --task normal --K 7 --gpus 0 --batch_size 1 --master_batch 1 --num_workers 2 --rgb_model ../experiment/result_model/dla34_K7_rgb_coco.pth --flow_model ../experiment/result_model/dla34_K7_flow_coco.pth --inference_dir /data0/liyixuan/speed_test/test --flip_test --ninput 5
 
+# ==============Args==============
+#
 # --task           during inference, there are three optional method: "normal", "stream", "speed", use "normal" by default
 # --K              input tubelet length, 7 by default
 # --gpus           gpu list, in our experiments, we use 8 NVIDIA TITAN XP
@@ -90,7 +102,7 @@ More details for `flip_test` can be found in [Tips.md](Tips.md) #1.
 
 <br/>
 
-If you want to run on JHMDB dataset, please add `--dataset hmdb --split 1 --hm_fusion_rgb` for split 1.
+If you want to run on JHMDB dataset, please add `--dataset hmdb --split 1 --hm_fusion_rgb 0.4` for split 1.
 
 After inference, you will get detection results in `$INFERENCE_DIR`.
 
@@ -160,7 +172,7 @@ Each backbone feature will compute only once and save in a buffer, which avoids 
 please run:
 
 ```python
-python3 det.py --task stream --K 7 --gpus 0 --batch_size 1 --master_batch 1 --num_workers 0 --rgb_model ../experiment/result_model/$PATH_TO_RGB_MODEL --inference_dir $INFERENCE_DIR --dataset hmdb --split 1
+python3 det.py --task stream --K 7 --gpus 0 --batch_size 1 --master_batch 1 --num_workers 0 --rgb_model ../experiment/result_model/$PATH_TO_RGB_MODEL --inference_dir $INFERENCE_DIR --dataset hmdb --split 1 --flip_test
 ```
 
 We use JHMDB because its valuation set is small.
@@ -171,9 +183,22 @@ You may notice some lags during stream_inference, please see this: [Tips.md](Tip
 
 It can be modified for real-time video stream.
 
-We will try to finish it as soon as possible, then MOC will use only previous K-1 frames and current frame. 
+<br/>
+
+We provide codes for testing our online detection FPS (Tubelets Per Seconds, actually).
+
+```python
+python3 det.py --task speed_test --K 7 --gpus 0 --batch_size 1 --master_batch 1 --num_workers 0
+--rgb_model ../experiment/result_model/$PATH_TO_RGB_MODEL --inference_dir $INFERENCE_DIR
+```
+
+This code uses fake image data for eliminating lags and we do not recommend adding `--flip_test` in online setting (see [Tips.md](Tips.md) #1.).
 
 <br/>
+
+In our single NVIDIA TITAN Xp with `batch size = 1`, the online detection results are (on UCF dataset with RGB as input): 
+
+<img src="../image/FPS.png" alt="FPS" style="zoom: 50%;" />
 
 ## Bash File
 
