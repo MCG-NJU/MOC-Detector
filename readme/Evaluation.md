@@ -196,7 +196,7 @@ This code uses fake image data for eliminating lags and we do not recommend addi
 
 <br/>
 
-In our single NVIDIA TITAN Xp with `batch size = 1`, the online detection results are (on UCF dataset with RGB as input): 
+On a single NVIDIA TITAN Xp with `batch size = 1`, our online detection results are (on UCF dataset with RGB as input): 
 
 <img src="../image/FPS.png" alt="FPS" style="zoom: 50%;" />
 
