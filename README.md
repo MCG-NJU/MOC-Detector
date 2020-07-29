@@ -43,7 +43,7 @@ Jul. 24, 2020 - Update ucf-pretrained JHMDB model and speed test codes.
 
 <div align="center" style="width:image width px;">
   <img  src="image/pipeline.png" width=450>
-  <img  src="image/moving1.gif" width=450>
+  <img  src="image/moving1.gif" width=420>
 </div>
 
 <br/>
