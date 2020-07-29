@@ -26,14 +26,14 @@ Our experimental results are:
 
 #### JHMDB  (models for 3 splits)
 
-|                 Model                  | Pretrain model | FrameAP@0.5 | VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95 |                           Download                           |
-| :------------------------------------: | :------------: | :---------: | :--------------------------------------: | :----------------------------------------------------------: |
-|   hmdb_s?_dla34_K7_rgb/flow_coco.pth   |      COCO      |    70.79    |     77.33 \| 77.19 \| 71.69 \| 59.08     | [models](https://drive.google.com/drive/folders/1OjBMLy44kWqHeG8TXBxtF3fM-UJOTgHE?usp=sharing) |
-|                 &emsp;                 |                |             |                                          |                                                              |
-| hmdb_s?_dla34_K7_rgb/flow_imagenet.pth |    ImageNet    |    67.95    |     76.23 \| 75.41 \| 68.46 \| 53.98     | [models](https://drive.google.com/drive/folders/1I0Pay-RaDbZTO89TOGUSGVPg736WJnRM?usp=sharing) |
-|                 &emsp;                 |                |             |                                          |                                                              |
-|   # *in our Supplementary Material*    |                |             |                                          |                                                              |
-|   hmdb_s?_dla34_K7_rgb/flow_ucf.pth    |      UCF       |    73.52    |     81.05 \| 80.92 \| 75.10 \| 60.65     | [models](https://drive.google.com/drive/folders/1lgWQbLNRomvatY5bGUgk2HcZYHy_GnHC?usp=sharing) |
+|                   Model                   | Pretrain model | FrameAP@0.5 | VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95 |                           Download                           |
+| :---------------------------------------: | :------------: | :---------: | :--------------------------------------: | :----------------------------------------------------------: |
+|   K7 RGB + FLOW COCO (average 3 splits)   |      COCO      |    70.79    |     77.33 \| 77.19 \| 71.69 \| 59.08     | [models](https://drive.google.com/drive/folders/1OjBMLy44kWqHeG8TXBxtF3fM-UJOTgHE?usp=sharing) |
+|                  &emsp;                   |                |             |                                          |                                                              |
+| K7 RGB + FLOW ImageNet (average 3 splits) |    ImageNet    |    67.95    |     76.23 \| 75.41 \| 68.46 \| 53.98     | [models](https://drive.google.com/drive/folders/1I0Pay-RaDbZTO89TOGUSGVPg736WJnRM?usp=sharing) |
+|                  &emsp;                   |                |             |                                          |                                                              |
+|     # *in our Supplementary Material*     |                |             |                                          |                                                              |
+|   K7 RGB + FLOW UCF (average 3 splits)    |      UCF       |    73.52    |     81.05 \| 80.92 \| 75.10 \| 60.65     | [models](https://drive.google.com/drive/folders/1lgWQbLNRomvatY5bGUgk2HcZYHy_GnHC?usp=sharing) |
 
 All these models are available at our [Google drive](https://drive.google.com/drive/folders/1rQd79JjcQAfMxOJwXoCdh05ryOb-P1dm?usp=sharing)
 
