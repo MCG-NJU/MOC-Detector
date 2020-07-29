@@ -166,4 +166,4 @@ For example, if we want to recovery from epoch 4, then we add `--load_model mode
 
 ## Bash File
 
-We also provide bash file for training. Please refer [train_ucf_k7.sh](../bash/train_ucf_k7.sh) and [train_jhmdb_k7.sh](../bash/train_jhmdb_k7.sh).
+We also provide bash file for training. Please refer [train_ucf_k7.sh](../scripts/train_ucf_k7.sh) and [train_jhmdb_k7.sh](../scripts/train_jhmdb_k7.sh).

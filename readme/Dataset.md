@@ -44,4 +44,5 @@ ${MOC_ROOT}
 
 <br/>
 
-For more details about the format of the `pkl` files, please see `./src/datasets/dataset/dataset_annotation.py`. 
+For more details about the format of the `pkl` files, please see [dataset_annotation.py](../src/datasets/dataset/dataset_annotation.py). 
+

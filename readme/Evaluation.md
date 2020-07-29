@@ -24,34 +24,16 @@ Our experimental results are:
 
 <br/>
 
-#### JHMDB
+#### JHMDB  (models for 3 splits)
 
 |                 Model                  | Pretrain model | FrameAP@0.5 | VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95 |                           Download                           |
 | :------------------------------------: | :------------: | :---------: | :--------------------------------------: | :----------------------------------------------------------: |
-|     hmdb_s1_dla34_K7_rgb_coco.pth      |      COCO      |      -      |                    -                     | [model](https://drive.google.com/file/d/18zxHPFTw_2KAmUcwsX-AB7FRsbFBZJCk/view?usp=sharing) |
-|     hmdb_s1_dla34_K7_flow_coco.pth     |      COCO      |      -      |                    -                     | [model](https://drive.google.com/file/d/17TYE2mKeQiENF3z3IPLTxWOHLOy4TFnr/view?usp=sharing) |
-|     hmdb_s2_dla34_K7_rgb_coco.pth      |      COCO      |      -      |                    -                     | [model](https://drive.google.com/file/d/1G810YYoQVp9qdOleR7QyLPddO8TxQeE5/view?usp=sharing) |
-|     hmdb_s2_dla34_K7_flow_coco.pth     |      COCO      |      -      |                    -                     | [model](https://drive.google.com/file/d/1aRK_HbOtRIiZToBUvbFYVyAHQEyTnMl6/view?usp=sharing) |
-|     hmdb_s3_dla34_K7_rgb_coco.pth      |      COCO      |      -      |                    -                     | [model](https://drive.google.com/file/d/1u3ktmzEd_VW2314AvVi85Lhy6H9d0Ju_/view?usp=sharing) |
-|     hmdb_s3_dla34_K7_flow_coco.pth     |      COCO      |      -      |                    -                     | [model](https://drive.google.com/file/d/1GZp8H7bUJxEfEONzPeQ5w2AkQBNLoSDx/view?usp=sharing) |
-|   K7 RGB + FLOW COCO 3 split average   |      COCO      |    70.79    |     77.33 \| 77.19 \| 71.69 \| 59.08     |                                                              |
+|   hmdb_s?_dla34_K7_rgb/flow_coco.pth   |      COCO      |    70.79    |     77.33 \| 77.19 \| 71.69 \| 59.08     | [models](https://drive.google.com/drive/folders/1OjBMLy44kWqHeG8TXBxtF3fM-UJOTgHE?usp=sharing) |
 |                                        |                |             |                                          |                                                              |
-|   hmdb_s1_dla34_K7_rgb_imagenet.pth    |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1aoRI4lglsxJO5g2Rs7cNd1lrsjGLMxPR/view?usp=sharing) |
-|   hmdb_s1_dla34_K7_flow_imagenet.pth   |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1vYUH612JRo9gOFE52BTjMnD5289VSpUi/view?usp=sharing) |
-|   hmdb_s2_dla34_K7_rgb_imagenet.pth    |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1HT20nEG3hYmJ2Cr37muBa45x8IpO-N0U/view?usp=sharing) |
-|   hmdb_s2_dla34_K7_flow_imagenet.pth   |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1eqgW_JcYwTIwaqL4phthG7bC99i7hZjq/view?usp=sharing) |
-|   hmdb_s2_dla34_K7_rgb_imagenet.pth    |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/15nvmbt19709MD37QZtaSnvL_2WlMfEoa/view?usp=sharing) |
-|   hmdb_s3_dla34_K7_flow_imagenet.pth   |    ImageNet    |      -      |                    -                     | [model](https://drive.google.com/file/d/1rDoE356pttM3NUxBHc9dr-FHQ8c66DR8/view?usp=sharing) |
-| K7 RGB + FLOW ImageNet 3 split average |    ImageNet    |    67.95    |     76.23 \| 75.41 \| 68.46 \| 53.98     |                                                              |
+| hmdb_s?_dla34_K7_rgb/flow_imagenet.pth |    ImageNet    |    67.95    |     76.23 \| 75.41 \| 68.46 \| 53.98     | [models](https://drive.google.com/drive/folders/1I0Pay-RaDbZTO89TOGUSGVPg736WJnRM?usp=sharing) |
 |                                        |                |             |                                          |                                                              |
 |   # *in our Supplementary Material*    |                |             |                                          |                                                              |
-|      hmdb_s1_dla34_K7_rgb_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1KTdadv32vWwhFP8rRKS4jT70eT-IfbxW/view?usp=sharing) |
-|     hmdb_s1_dla34_K7_flow_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1Zgdc-FEysYIEYAK7GpsPdoRtQ6KtUm4J/view?usp=sharing) |
-|      hmdb_s2_dla34_K7_rgb_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/15zYlIKncCcLkphFYHaPgxrK3J7f6euUx/view?usp=sharing) |
-|     hmdb_s2_dla34_K7_flow_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1v1uGeg-_V-OAUKVcv3V6Oxbuofu2F9aD/view?usp=sharing) |
-|      hmdb_s3_dla34_K7_rgb_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1d0HmeQ-rrniPsOD6On5t0AjY9ADEQYWT/view?usp=sharing) |
-|     hmdb_s3_dla34_K7_flow_ucf.pth      |      UCF       |      -      |                    -                     | [model](https://drive.google.com/file/d/1EpOnT1ixebcmJbNeR6X8wmED2mf9dUAX/view?usp=sharing) |
-|   K7 RGB + FLOW UCF 3 split average    |      UCF       |    73.52    |     81.05 \| 80.92 \| 75.10 \| 60.65     |                                                              |
+|   hmdb_s?_dla34_K7_rgb/flow_ucf.pth    |      UCF       |    73.52    |     81.05 \| 80.92 \| 75.10 \| 60.65     | [models](https://drive.google.com/drive/folders/1lgWQbLNRomvatY5bGUgk2HcZYHy_GnHC?usp=sharing) |
 
 All these models are available at our [Google drive](https://drive.google.com/drive/folders/1rQd79JjcQAfMxOJwXoCdh05ryOb-P1dm?usp=sharing)
 
@@ -163,6 +145,8 @@ MOC can be also applied for the real-time video stream after some engineering mo
 
 Since the backbone feature can be extracted only once, we save previous K-1 frames' features in a buffer. When getting a new frame, MOC's backbone first extracts its feature and combines with the previous K-1 frames' features in buffer. Then, the K frames' features are fed into MOC's three branches to generate tubelet detections. Finally, the linking algorithm builds video-level detection results with these new tubelets at once. After that, update the buffer with current frame's feature for subsequent video stream's detection.
 
+<img src="../image/online.png" alt="FPS" style="zoom: 40%;" />
+
 <br/>
 
 Now we provide a new inference method called 'stream_inference', which can handle real-time video stream online.
@@ -198,9 +182,9 @@ This code uses fake image data for eliminating lags and we do not recommend addi
 
 On a single NVIDIA TITAN Xp with `batch size = 1`, our online detection results are (on UCF dataset with RGB as input): 
 
-<img src="../image/FPS.png" alt="FPS" style="zoom: 50%;" />
+<img src="../image/FPS.png" alt="FPS" style="zoom: 40%;" />
 
 ## Bash File
 
-We also provide bash file for evaluation. Please refer [ucf_normal_inference.sh](../bash/ucf_normal_inference.sh) and [jhmdb_stream_inference.sh](../bash/jhmdb_stream_inference.sh).
+We also provide bash file for evaluation. Please refer [ucf_normal_inference.sh](../scripts/ucf_normal_inference.sh) and [jhmdb_stream_inference.sh](../scripts/jhmdb_stream_inference.sh).
 

@@ -38,10 +38,10 @@ Jul. 24, 2020 - Update ucf-pretrained JHMDB model and speed test codes.
 &emsp; We present a new action tubelet detection framework, termed as **MovingCenter Detector (MOC-detector)**, by treating an action instance as a trajectory of moving points. MOC-detector is decomposed into three crucial head branches:
 
 - (1) Center Branch for instance center detection and action recognition.
-
 - (2) Movement Branch for movement estimation at adjacent frames to form moving point trajectories.
-
 - (3) Box Branch for spatial extent detection by directly regressing bounding box size at the estimated center point of each frame.
+
+<img src="./image/moving1.gif" alt="moving1" style="zoom:50%;" />
 
 <br/>
 
