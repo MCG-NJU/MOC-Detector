@@ -41,7 +41,9 @@ Jul. 24, 2020 - Update ucf-pretrained JHMDB model and speed test codes.
 - (2) **Movement Branch** for movement estimation at adjacent frames to form moving point trajectories.
 - (3) **Box Branch** for spatial extent detection by directly regressing bounding box size at the estimated center point of each frame.
 
-<img src="./image/moving1.gif" alt="moving1" style="zoom:45%;" />
+<div align="center" style="width:image width px;">
+  <img  src="image/moving1.gif" width=550>
+</div>
 
 <br/>
 

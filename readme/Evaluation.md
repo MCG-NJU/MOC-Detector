@@ -26,7 +26,7 @@ Our experimental results are:
 
 #### JHMDB  (models for 3 splits)
 
-|&emsp;&emsp;&emsp;&emsp;                 Model                  &emsp;&emsp;&emsp;&emsp;| Pretrain model | FrameAP@0.5 | VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95 |                           Download                           |
+|                 Model                  | Pretrain model | FrameAP@0.5 | VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95 |                           Download                           |
 | :------------------------------------: | :------------: | :---------: | :--------------------------------------: | :----------------------------------------------------------: |
 |   hmdb_s?_dla34_K7_rgb/flow_coco.pth   |      COCO      |    70.79    |     77.33 \| 77.19 \| 71.69 \| 59.08     | [models](https://drive.google.com/drive/folders/1OjBMLy44kWqHeG8TXBxtF3fM-UJOTgHE?usp=sharing) |
 |                                        |                |             |                                          |                                                              |
@@ -47,7 +47,7 @@ Firstly, we will get detection results using previous models.
 
 please run
 
-~~~bash
+~~~python
 python3 det.py --task normal --K 7 --gpus 0,1,2,3,4,5,6,7 --batch_size 94 --master_batch 10 --num_workers 8 --rgb_model ../experiment/result_model/$PATH_TO_RGB_MODEL --flow_model ../experiment/result_model/$PATH_TO_FLOW_MODEL --inference_dir $INFERENCE_DIR --flip_test --ninput 5
 
 # handle remained chunk size
@@ -182,7 +182,9 @@ This code uses fake image data for eliminating lags and we do not recommend addi
 
 On a single NVIDIA TITAN Xp with `batch size = 1`, our online detection results are (on UCF dataset with RGB as input): 
 
-<img src="../image/FPS.png" alt="FPS" style="zoom: 20%;" />
+<div align="center" style="width:image width px;">
+  <img  src="../image/FPS.png" width=600>
+</div>
 
 ## Bash File
 
