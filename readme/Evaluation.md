@@ -145,7 +145,7 @@ MOC can be also applied for the real-time video stream after some engineering mo
 
 Since the backbone feature can be extracted only once, we save previous K-1 frames' features in a buffer. When getting a new frame, MOC's backbone first extracts its feature and combines with the previous K-1 frames' features in buffer. Then, the K frames' features are fed into MOC's three branches to generate tubelet detections. Finally, the linking algorithm builds video-level detection results with these new tubelets at once. After that, update the buffer with current frame's feature for subsequent video stream's detection.
 
-<img src="../image/online.png" alt="FPS" style="zoom: 40%;" />
+<img src="../image/online_inference.png" alt="FPS" style="zoom: 40%;" />
 
 <br/>
 
