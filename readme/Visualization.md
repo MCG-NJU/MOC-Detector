@@ -43,7 +43,7 @@ mv $PATH_TO_DOWNLOAD/ucf_dla34_K7_rgb_coco.pth   ${MOC_ROOT}/experiment/result_m
 
 <br/>
 
-&emsp;You can choose a `.mp4` video from ucf24 [test_video_list](test_video_list.txt). Video frames will be extracted automatically and MOC-Detector will manipulate these frames to produce spatialtemporal detection results (saved in `.pkl` file). After linking algorithm the result tubelet will be added on each frame. Finally you will get a `.avi` visualization video in  `INFERENCE_DIR`.
+You can choose a `.mp4` video from ucf24 [test_video_list](test_video_list.txt). Video frames will be extracted automatically and MOC-Detector will manipulate these frames to produce spatialtemporal detection results (saved in `.pkl` file). After linking algorithm the result tubelet will be added on each frame. Finally you will get a `.avi` visualization video in  `INFERENCE_DIR`.
 
 (.mp4 --> .rgb --> .pkl --> .rgb --> .avi)
 
@@ -90,5 +90,5 @@ So it depends on specific situations.
   <img  src="../image/Diving_th_02.gif" width=400>
 </div>
 
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(Left `--frame_vis_th` is 0.015 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        Right `--frame_vis_th` is 0.2)
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(Left `--frame_vis_th` is 0.015 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        Right `--frame_vis_th` is 0.2)
 
