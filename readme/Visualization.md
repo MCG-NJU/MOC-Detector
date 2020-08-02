@@ -47,6 +47,8 @@ You can choose a `.mp4` video from ucf24 [test_video_list](test_video_list.txt).
 
 (.mp4 --> .rgb --> .pkl --> .rgb --> .avi)
 
+<br/>
+
 For short, run this script in `${MOC_ROOT}/src/vis`
 
 ```python
@@ -57,7 +59,7 @@ python3 vis_det.py --vname v_SalsaSpin_g03_c06.mp4
 
 <br/>
 
-You should modify the [tiny_opt.py](../src/vis/tiny_opt.py) as follow:
+You should modify these args in [tiny_opt.py](../src/vis/tiny_opt.py):
 
 ```python
 # important args:
