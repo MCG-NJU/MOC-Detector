@@ -35,10 +35,10 @@
    
     For other pytorch version, you can manually open `torch/nn/functional.py` and find the line with `torch.batch_norm` and replace the `torch.backends.cudnn.enabled` with `False`. 
 
-3. Clone this repo ($MOC_ROOT is the path to clone):
+3. Clone this repo (${MOC_ROOT} is the path to clone):
 
    ~~~powershell
-   git clone https://github.com/MCG-NJU/MOC-Detector.git $MOC_ROOT
+   git clone https://github.com/MCG-NJU/MOC-Detector.git ${MOC_ROOT}
    ~~~
 
 
@@ -51,6 +51,6 @@
 5. Compile deformable convolutional in DLA backbone follow [CenterNet](https://github.com/xingyizhou/CenterNet/blob/master/readme/INSTALL.md).
 
    ~~~powershell
-   cd $MOC_ROOT/src/network/DCNv2
+   cd ${MOC_ROOT}/src/network/DCNv2
    bash make.sh
    ~~~

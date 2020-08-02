@@ -32,7 +32,10 @@ class PrefetchDataset(torch.utils.data.Dataset):
         self.pre_process = pre_process
         self.pre_process_single_frame = pre_process_single_frame
         self.opt = opt
-        self.vlist = dataset._test_videos[dataset.split - 1]
+        self.vlist = dataset._train_videos[dataset.split - 1]
+        print(self.vlist, flush=True)
+        assert 0
+
         self.gttubes = dataset._gttubes
         self.nframes = dataset._nframes
         self.imagefile = dataset.imagefile

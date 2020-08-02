@@ -19,33 +19,37 @@ class MOCDetector(object):
         if opt.gpus[0] >= 0:
             opt.device = torch.device('cuda')
         else:
-            opt.device = torch.device('cpu')
+            assert 'cpu is not supported!'
 
         self.rgb_model_backbone, self.rgb_model_branch = None, None
         self.flow_model_backbone, self.flow_model_branch = None, None
         if opt.rgb_model != '':
-            print('create rgb model')
             self.rgb_model_backbone, self.rgb_model_branch = create_inference_model(opt.arch, opt.branch_info, opt.head_conv, opt.K, flip_test=opt.flip_test)
+            print('create rgb model', flush=True)
             self.rgb_model_backbone, self.rgb_model_branch = load_inference_model(self.rgb_model_backbone, self.rgb_model_branch, opt.rgb_model)
+            print('load rgb model', flush=True)
             self.rgb_model_backbone = DataParallel(
                 self.rgb_model_backbone, device_ids=[opt.gpus[0]],
                 chunk_sizes=[1]).to(opt.device)
             self.rgb_model_branch = DataParallel(
                 self.rgb_model_branch, device_ids=[opt.gpus[0]],
                 chunk_sizes=[1]).to(opt.device)
+            print('put rgb model to gpu', flush=True)
             self.rgb_model_backbone.eval()
             self.rgb_model_branch.eval()
         if opt.flow_model != '':
-            print('create flow model')
             self.flow_model_backbone, self.flow_model_branch = create_inference_model(opt.arch, opt.branch_info, opt.head_conv, opt.K, flip_test=opt.flip_test)
             self.flow_model_backbone = convert2flow(opt.ninput, self.flow_model_backbone)
+            print('create flow model', flush=True)
             self.flow_model_backbone, self.flow_model_branch = load_inference_model(self.flow_model_backbone, self.flow_model_branch, opt.flow_model)
+            print('load flow model', flush=True)
             self.flow_model_backbone = DataParallel(
                 self.flow_model_backbone, device_ids=[opt.gpus[0]],
                 chunk_sizes=[1]).to(opt.device)
             self.flow_model_branch = DataParallel(
                 self.flow_model_branch, device_ids=[opt.gpus[0]],
                 chunk_sizes=[1]).to(opt.device)
+            print('put flow model to gpu', flush=True)
             self.flow_model_backbone.eval()
             self.flow_model_branch.eval()
 

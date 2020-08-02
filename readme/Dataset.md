@@ -11,8 +11,8 @@ You can download the rgb frames , optical flow and ground truth annotations from
 (We get UCF101-24 v2 from [here](https://github.com/gurkirt/realtime-action-detection) and  JHMDB from [here](https://github.com/vkalogeiton/caffe/tree/act-detector))
 
 ```powershell
-tar -zxvf UCF101_v2.tar
-tar -zxvf JHMDB.tar
+tar -zxvf UCF101_v2.tar.gz
+tar -zxvf JHMDB.tar.gz
 ```
 
 <br/>
@@ -20,8 +20,8 @@ tar -zxvf JHMDB.tar
 Create soft link:
 
 ```powershell
-ln -s $PATH_TO_UCF101 ./data/ucf24
-ln -s $PATH_TO_JHMDB ./data/JHMDB
+ln -s $PATH_TO_DOWNLOAD/UCF101_v2   ${MOC_ROOT}/data/ucf24
+ln -s $PATH_TO_DOWNLOAD/JHMDB   ${MOC_ROOT}/data/JHMDB
 ```
 
 <br/>

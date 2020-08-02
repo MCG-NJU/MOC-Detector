@@ -31,6 +31,8 @@ Jul. 08, 2020 - First release of codes.
 
 Jul. 24, 2020 - Update ucf-pretrained JHMDB model and speed test codes.
 
+Aug. 02, 2020 - Update visualization codes. Extract frames from a video and get the detection result (like above gifs).
+
 <br/>
 
 ## MOC Detector Overview  
@@ -56,17 +58,29 @@ Jul. 24, 2020 - Update ucf-pretrained JHMDB model and speed test codes.
 
 Please refer to [Installation.md](readme/Installation.md) for installation instructions.
 
+<br/>
+
 ### 2. Dataset
 
 Please refer to [Dataset.md](readme/Dataset.md) for dataset setup instructions.
 
+<br/>
+
 ### 3. Evaluation
 
-After [Installation.md](readme/Installation.md) and [Dataset.md](readme/Dataset.md), you can follow the instructions in [Evaluation.md](readme/Evaluation.md) to evaluate our model and reproduce the results in original paper.
+You can follow the instructions in [Evaluation.md](readme/Evaluation.md) to evaluate our model and reproduce the results in original paper.
+
+<br/>
 
 ### 4. Train
 
-After [Installation.md](readme/Installation.md) and [Dataset.md](readme/Dataset.md), you can follow the instructions in [Train.md](readme/Train.md) to reproduce our experiments.
+You can follow the instructions in [Train.md](readme/Train.md) to train our models.
+
+<br/>
+
+### 5. Visualization
+
+You can follow the instructions in [Visualization.md](readme/Visualization.md) to get visualization results.
 
 <br/>
 

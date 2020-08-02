@@ -14,4 +14,9 @@ test2.sh
 test3.sh
 test.py
 speed_normal.py
+speed_inference.py
+speed_moc_det.py
 train_jhmdb_k7_ucf_pretrain.sh
+test_video/
+*.ipynb
+.ipynb_checkpoints/
