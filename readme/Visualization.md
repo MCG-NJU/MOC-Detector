@@ -55,7 +55,7 @@ For short, run this script in `${MOC_ROOT}/src/vis`
 python3 vis_det.py --vname v_SalsaSpin_g03_c06.mp4
 ```
 
-(`--vname` choose a video in ucf24 [test_video_list](test_video_list.txt))
+(`--vname` choose a video in ucf24 [test_video_list](../src/vis/test_video_list.txt))
 
 <br/>
 

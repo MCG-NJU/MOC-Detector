@@ -20,3 +20,4 @@ train_jhmdb_k7_ucf_pretrain.sh
 test_video/
 *.ipynb
 .ipynb_checkpoints/
+result_video/
