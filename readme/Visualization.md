@@ -45,7 +45,7 @@ mv $PATH_TO_DOWNLOAD/ucf_dla34_K7_rgb_coco.pth   ${MOC_ROOT}/experiment/result_m
 
 You can choose a `.mp4` video from ucf24 [test_video_list](test_video_list.txt). Video frames will be extracted automatically and MOC-Detector will manipulate these frames to produce spatialtemporal detection results (saved in `.pkl` file). After linking algorithm the result tubelet will be added on each frame. Finally you will get a `.avi` visualization video in  `INFERENCE_DIR`.
 
-(.mp4 --> .rgb --> .pkl --> .rgb --> .avi)
+(.mp4 --> .jpg --> .pkl --> .jpg --> .avi)
 
 <br/>
 
@@ -83,12 +83,23 @@ Do not set a ver large `--tube_vis_th` due to the property of the focal loss, ot
 
 `--frame_vis_th` will eliminate the lower score detection frames from a tubelet. On the one hand it can handle the action boundary but on the other hand, it may lead to the **discontinuity**.
 
-So it depends on specific situations.
+So it depends on specific situations. 
 
 <div align="center" style="width:image width px;">
-  <img  src="../image/Diving_th_0015.gif" width=400>
-  <img  src="../image/Diving_th_02.gif" width=400>
+  <img  src="../image/Diving_th_0015-02.gif" width=600>
 </div>
+
 
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(Left `--frame_vis_th` is 0.015 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        Right `--frame_vis_th` is 0.2)
 
+<br/>Diving_th_0015-02
+
+If you select a video **excluding** UCF 24 action classes, the actor bbox may be detected but the action label will be mis-classified. (Unseen class in training set)
+
+<div align="center" style="width:image width px;">
+  <img  src="../image/BabyCrawling.gif" width=400>
+  <img  src="../image/BoxingPunchingBag.gif" width=400>
+</div>
+
+
+ `BabyCrawling`  and `BoxingPunchingBag` are in ucf101 but not in ucf24 sub-class, so they are both mis-classified. Fortunately, actor bbox detection still work well.
