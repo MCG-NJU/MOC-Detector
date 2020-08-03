@@ -90,9 +90,9 @@ So it depends on specific situations.
 </div>
 
 
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(Left `--frame_vis_th` is 0.015 &emsp;&emsp;&emsp;&emsp;        Right `--frame_vis_th` is 0.2)
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(Left `--frame_vis_th` is 0.015 &emsp;&emsp;&emsp;        Right `--frame_vis_th` is 0.2)
 
-<br/>Diving_th_0015-02
+<br/>
 
 If you select a video **excluding** UCF 24 action classes, the actor bbox may be detected but the action label will be mis-classified. (Unseen classes in training set)
 
