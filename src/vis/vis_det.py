@@ -162,10 +162,10 @@ def det():
 
     vis_bbox(os.path.join(opt.inference_dir, 'rgb'), bbox_dict)
 
-    rgb2avi(opt.inference_dir)
-
     if opt.save_gif:
         rgb2gif(opt.inference_dir)
+
+    rgb2avi(opt.inference_dir)
 
     print('Finish!', flush=True)
 
