@@ -27,9 +27,9 @@
 
 ## News & Updates
 
-Jul. 08, 2020 - First release of codes.
+Jul. 08, 2020 -    First release of codes.
 
-Jul. 24, 2020 - Update ucf-pretrained JHMDB model and speed test codes.
+Jul. 24, 2020 -    Update ucf-pretrained JHMDB model and speed test codes.
 
 Aug. 02, 2020 - Update visualization codes. Extract frames from a video and get the detection result (like above gifs).
 

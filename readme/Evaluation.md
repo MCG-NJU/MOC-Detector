@@ -82,6 +82,8 @@ python3 det.py --task normal --K 7 --gpus 0 --batch_size 1 --master_batch 1 --nu
 
 More details for `flip_test` can be found in [Tips.md](Tips.md) #1.
 
+***[Attention]*** We surprisingly find that using `--N 10` and **removeing** `--flip_test` would have comparable performance but increase the inference speed. (On UCF dataset) More details are in [Tips.md](Tips.md) #4.
+
 <br/>
 
 If you want to run on JHMDB dataset, please add `--dataset hmdb --split 1 --hm_fusion_rgb 0.4` for split 1.
