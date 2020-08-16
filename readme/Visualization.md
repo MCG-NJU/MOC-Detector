@@ -43,7 +43,7 @@ mv $PATH_TO_DOWNLOAD/ucf_dla34_K7_rgb_coco.pth   ${MOC_ROOT}/experiment/result_m
 
 <br/>
 
-You can choose a `.mp4` video from ucf24 [test_video_list](test_video_list.txt). Video frames will be extracted automatically and MOC-Detector will manipulate these frames to produce spatialtemporal detection results (saved in `.pkl` file). After linking algorithm the result tubelet will be added on each frame. Finally you will get a `.avi` visualization video in  `INFERENCE_DIR`.
+You can choose a `.mp4` video from ucf24 [test_video_list](../src/vis/test_video_list.txt)). Video frames will be extracted automatically and MOC-Detector will manipulate these frames to produce spatialtemporal detection results (saved in `.pkl` file). After linking algorithm the result tubelet will be added on each frame. Finally you will get a `.avi` visualization video in  `INFERENCE_DIR`.
 
 (.mp4 --> .jpg --> .pkl --> .jpg --> .avi)
 
