@@ -23,11 +23,11 @@ class MOC_Backbone(nn.Module):
 
 
 class MOC_Det(nn.Module):
-    def __init__(self, backbone, branch_info, head_conv, K, flip_test=False):
+    def __init__(self, backbone, branch_info, arch, head_conv, K, flip_test=False):
         super(MOC_Det, self).__init__()
         self.flip_test = flip_test
         self.K = K
-        self.branch = MOC_Branch(backbone.backbone.output_channel, head_conv, branch_info, K)
+        self.branch = MOC_Branch(backbone.backbone.output_channel, arch, head_conv, branch_info, K)
 
     def forward(self, chunk1, chunk2):
         assert(self.K == len(chunk1))

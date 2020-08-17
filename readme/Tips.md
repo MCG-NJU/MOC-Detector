@@ -50,4 +50,4 @@ Old video's feature is not continuity for new video, so the feature buffer will 
 |         N=100    with flip          |    78.01    |     82.81 \| 53.83 \| 29.59 \| 28.33     |
 |         N=10   without flip         |    77.43    |     83.08 \| 53.89 \| 29.49 \| 28.22     |
 
-The new results are acceptable on UCF. Moreover the boosting on inference speed is remarkable. (about **x1.8** for inference step and **x5.5** for build step)
+The new results are acceptable on UCF dataset. Moreover the boosting on inference speed is remarkable. (about **x1.8** for inference step and **x5.5** for build step)

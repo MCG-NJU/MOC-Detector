@@ -7,6 +7,12 @@ label_class = ['Basketball', 'BasketballDunk', 'Biking', 'CliffDiving', 'Cricket
                'LongJump',  'PoleVault',  'RopeClimbing', 'SalsaSpin', 'SkateBoarding', 'Skiing', 'Skijet', 'SoccerJuggling', 'Surfing', 'TennisSwing', 'TrampolineJumping',
                'VolleyballSpiking', 'WalkingWithDog']
 
+instance_color = ['yellow', 'lime', 'MediumVioletRed', 'Cyan', 'DarkOrange', 'Red', 'Navy', 'Indigo', 'RoyalBlue']
+
+
+def takeLast(elem):
+    return elem[-1]
+
 
 def pkl_decode(opt):
     print('build finish, decode detection results', flush=True)
@@ -14,9 +20,11 @@ def pkl_decode(opt):
         pkl = pickle.load(fid)
 
     bbox_dict = {}
+    tube_id = 0
     for label in pkl.keys():
         out = pkl[label]
         if len(out) > 0:
+            out.sort(key=takeLast, reverse=True)
             for tube in out:
                 tube_score = tube[1]
                 if tube_score > opt.tube_vis_th:
@@ -28,13 +36,14 @@ def pkl_decode(opt):
                             x1, y1, x2, y2 = tube[0][frame][1], tube[0][frame][2], tube[0][frame][3], tube[0][frame][4]
                             if fid not in bbox_dict:
                                 bbox_dict[fid] = []
-                                bbox_dict[fid].append([x1, y1, x2, y2, frame_score, label_name])
+                                bbox_dict[fid].append([x1, y1, x2, y2, frame_score, label_name, tube_id])
                             else:
-                                bbox_dict[fid].append([x1, y1, x2, y2, frame_score, label_name])
+                                bbox_dict[fid].append([x1, y1, x2, y2, frame_score, label_name, tube_id])
+                    tube_id += 1
     return bbox_dict
 
 
-def vis_bbox(inference_dir, bbox_dict):
+def vis_bbox(inference_dir, bbox_dict, instance_level=False):
     print('draw bboxes on each frame', flush=True)
     if not os.path.isdir(os.path.dirname('tmp')):
         os.system("mkdir -p tmp")
@@ -58,12 +67,13 @@ def vis_bbox(inference_dir, bbox_dict):
             for bbox in bbox_list:
                 x1, y1, x2, y2 = bbox[0], bbox[1], bbox[2], bbox[3]
 
+                edgecolor = instance_color[bbox[6]] if instance_level and bbox[6] < len(instance_color) else 'yellow'
                 ax.add_patch(plt.Rectangle(
                     (x1, y1),
                     x2 - x1,
                     y2 - y1,
                     fill=False,
-                    edgecolor='yellow',
+                    edgecolor=edgecolor,
                     linewidth=3))
 
                 text = bbox[5] + ', ' + "%.2f" % bbox[4]
@@ -76,14 +86,23 @@ def vis_bbox(inference_dir, bbox_dict):
 
 
 def video2frames(opt):
-    print('start extracting frames')
-    vidcap = cv2.VideoCapture(os.path.join(opt.DATA_ROOT, opt.vname))
-    success, image = vidcap.read()
-    fid = 1
-    while success:
-        cv2.imwrite(os.path.join(opt.inference_dir, 'rgb', '{:0>5}.jpg'.format(fid)), image)
-        fid = fid + 1
+    if opt.pre_extracted_brox_flow:
+        pre_extracted_frames(opt)
+    else:
+        print('start extracting frames')
+        vidcap = cv2.VideoCapture(os.path.join(opt.DATA_ROOT, opt.vname))
         success, image = vidcap.read()
+        fid = 1
+        while success:
+            cv2.imwrite(os.path.join(opt.inference_dir, 'rgb', '{:0>5}.jpg'.format(fid)), image)
+            fid = fid + 1
+            success, image = vidcap.read()
+
+
+def pre_extracted_frames(opt):
+    print('moving frames(JPG, Flow)')
+    os.system("cp " + os.path.join(opt.IMAGE_ROOT, 'rgb-images', opt.vname, '*') + " " + os.path.join(opt.inference_dir, 'rgb'))
+    os.system("cp " + os.path.join(opt.IMAGE_ROOT, 'brox-images', opt.vname, '*') + " " + os.path.join(opt.inference_dir, 'flow'))
 
 
 def rgb2avi(inference_dir):
@@ -105,7 +124,7 @@ def rgb2avi(inference_dir):
     cv2.destroyAllWindows()
     os.system("rm -rf tmp")
     os.system("rm -rf " + inference_dir + "/rgb")
-    # os.system("rm -rf " + inference_dir + "/flow")
+    os.system("rm -rf " + inference_dir + "/flow")
 
 
 def rgb2gif(inference_dir):

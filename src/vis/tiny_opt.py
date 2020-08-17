@@ -25,9 +25,8 @@ class opts(object):
                                  help='min score for visualize tube')
         self.parser.add_argument('--frame_vis_th', type=float, default=0.015,
                                  help='min score for visualize individual frame')
-
-        self.parser.add_argument('--save_gif', action='store_true',
-                                 help='save uncompressed GIF')
+        self.parser.add_argument('--instance_level', action='store_true',
+                                 help='draw instance_level action bbox in different color')
 
         # model seeting
         self.parser.add_argument('--arch', default='dla_34',
@@ -65,12 +64,22 @@ class opts(object):
         self.parser.add_argument('--wh_fusion_rgb', type=float, default=0.8,
                                  help='rgb : th, flow: 1 - th')
 
+        # debug
+        self.parser.add_argument('--IMAGE_ROOT', default='../../data/ucf24',
+                                 help='dataset root path')
+        self.parser.add_argument('--pre_extracted_brox_flow', action='store_true',
+                                 help='use pre-extracted brox flow and image frames')
+        self.parser.add_argument('--save_gif', action='store_true',
+                                 help='save uncompressed GIF')
+
     def parse(self, args=''):
         if args == '':
             opt = self.parser.parse_args()
         else:
             opt = self.parser.parse_args(args)
 
+        if opt.flow_model != '':
+            opt.pre_extracted_brox_flow = True
         opt.mean = [0.40789654, 0.44719302, 0.47026115]
         opt.std = [0.28863828, 0.27408164, 0.27809835]
         opt.gpus = [0]

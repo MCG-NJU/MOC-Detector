@@ -7,14 +7,14 @@
  Visualization results on validation set. *(GIFs will take a few minutes to load......)*
 
 <div align="center" style="width:image width px;">
-  <img  src="image/SalsaSpin.gif" width=240>
-  <img  src="image/TrampolineJumping.gif" width=240>
+  <img  src="image/instance_SalsaSpin.gif" width=240>
+  <img  src="image/instance_TrampolineJumping.gif" width=240>
   <img  src="image/diving.gif" width=240 >
 </div>
 <div align="center" style="width:image width px;">
   <img  src="image/run.gif" width=240>
   <img  src="image/soccer.gif" width=240>
-  <img  src="image/fencing_mutil.gif" width=240 >
+  <img  src="image/instance_Fencing.gif" width=240 >
 </div>
 
 
@@ -32,6 +32,8 @@ Jul. 08, 2020 -    First release of codes.
 Jul. 24, 2020 -    Update ucf-pretrained JHMDB model and speed test codes.
 
 Aug. 02, 2020 - Update visualization codes. Extract frames from a video and get the detection result (like above gifs).
+
+Aug. 17, 2020 - Now our visualization supports instance level detection results (reflects video mAP).
 
 <br/>
 

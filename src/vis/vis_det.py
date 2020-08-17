@@ -68,15 +68,15 @@ class PrefetchDataset(torch.utils.data.Dataset):
                 else:
                     self.img_buffer = images
 
-            # if self.opt.flow_model != '':
-            #     flows = [cv2.imread(self.flowfile(min(frame + i, self.nframes))).astype(np.float32) for i in range(self.opt.K + self.opt.ninput - 1)]
-            #     flows = self.pre_process(flows, is_flow=True, ninput=self.opt.ninput)
-            #
-            #     if self.opt.flip_test:
-            #         self.flow_buffer = flows[:self.opt.K]
-            #         self.flow_buffer_flip = flows[self.opt.K:]
-            #     else:
-            #         self.flow_buffer = flows
+            if self.opt.pre_extracted_brox_flow and self.opt.flow_model != '':
+                flows = [cv2.imread(self.flowfile(min(frame + i, self.nframes))).astype(np.float32) for i in range(self.opt.K + self.opt.ninput - 1)]
+                flows = self.pre_process(flows, is_flow=True, ninput=self.opt.ninput)
+
+                if self.opt.flip_test:
+                    self.flow_buffer = flows[:self.opt.K]
+                    self.flow_buffer_flip = flows[self.opt.K:]
+                else:
+                    self.flow_buffer = flows
 
         else:
             if self.opt.rgb_model != '':
@@ -91,19 +91,19 @@ class PrefetchDataset(torch.utils.data.Dataset):
                 else:
                     images = self.img_buffer
 
-            # if self.opt.flow_model != '':
-            #     flow = cv2.imread(self.flowfile(min(frame + self.opt.K + self.opt.ninput - 2, self.nframes))).astype(np.float32)
-            #     data_last_flip = self.flow_buffer_flip[-1] if self.opt.flip_test else None
-            #     data_last = self.flow_buffer[-1]
-            #     flow, flow_flip = self.pre_process_single_frame(flow, is_flow=True, ninput=self.opt.ninput, data_last=data_last, data_last_flip=data_last_flip)
-            #     del self.flow_buffer[0]
-            #     self.flow_buffer.append(flow)
-            #     if self.opt.flip_test:
-            #         del self.flow_buffer_flip[0]
-            #         self.flow_buffer_flip.append(flow_flip)
-            #         flows = self.flow_buffer + self.flow_buffer_flip
-            #     else:
-            #         flows = self.flow_buffer
+            if self.opt.pre_extracted_brox_flow and self.opt.flow_model != '':
+                flow = cv2.imread(self.flowfile(min(frame + self.opt.K + self.opt.ninput - 2, self.nframes))).astype(np.float32)
+                data_last_flip = self.flow_buffer_flip[-1] if self.opt.flip_test else None
+                data_last = self.flow_buffer[-1]
+                flow, flow_flip = self.pre_process_single_frame(flow, is_flow=True, ninput=self.opt.ninput, data_last=data_last, data_last_flip=data_last_flip)
+                del self.flow_buffer[0]
+                self.flow_buffer.append(flow)
+                if self.opt.flip_test:
+                    del self.flow_buffer_flip[0]
+                    self.flow_buffer_flip.append(flow_flip)
+                    flows = self.flow_buffer + self.flow_buffer_flip
+                else:
+                    flows = self.flow_buffer
         outfile = self.outfile(frame)
         if not os.path.isdir(os.path.dirname(outfile)):
             os.system("mkdir -p '" + os.path.dirname(outfile) + "'")
@@ -151,6 +151,7 @@ def det():
     os.system("rm -rf " + opt.inference_dir + "/*")
     os.system("rm -rf tmp")
     os.system("mkdir -p '" + os.path.join(opt.inference_dir, 'rgb') + "'")
+    os.system("mkdir -p '" + os.path.join(opt.inference_dir, 'flow') + "'")
 
     video2frames(opt)
 
@@ -160,7 +161,7 @@ def det():
 
     bbox_dict = pkl_decode(opt)
 
-    vis_bbox(os.path.join(opt.inference_dir, 'rgb'), bbox_dict)
+    vis_bbox(os.path.join(opt.inference_dir, 'rgb'), bbox_dict, opt.instance_level)
 
     if opt.save_gif:
         rgb2gif(opt.inference_dir)

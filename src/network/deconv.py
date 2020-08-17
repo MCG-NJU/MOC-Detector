@@ -22,14 +22,17 @@ def fill_up_weights(up):
 class deconv_layers(nn.Module):
     def __init__(self, inplanes, BN_MOMENTUM=0.1):
         super(deconv_layers, self).__init__()
+        self.BN_MOMENTUM = BN_MOMENTUM
+        self.inplanes = inplanes
         # used for deconv layers
         self.deconv_layers = self._make_deconv_layer(
             3,
             [256, 128, 64],
             [4, 4, 4],
         )
-        self.BN_MOMENTUM = BN_MOMENTUM
-        self.inplanes = inplanes
+
+    def forward(self, input):
+        return self.deconv_layers(input)
 
     def _get_deconv_cfg(self, deconv_kernel, index):
         if deconv_kernel == 4:

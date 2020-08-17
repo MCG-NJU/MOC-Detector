@@ -15,9 +15,10 @@ def fill_fc_weights(layers):
 
 
 class MOC_Branch(nn.Module):
-    def __init__(self, input_channel, head_conv, branch_info, K):
+    def __init__(self, input_channel, arch, head_conv, branch_info, K):
         super(MOC_Branch, self).__init__()
         assert head_conv > 0
+        wh_head_conv = 64 if arch == 'resnet' else head_conv
 
         self.hm = nn.Sequential(
             nn.Conv2d(K * input_channel, head_conv,
@@ -38,10 +39,10 @@ class MOC_Branch(nn.Module):
         fill_fc_weights(self.mov)
 
         self.wh = nn.Sequential(
-            nn.Conv2d(input_channel, head_conv,
+            nn.Conv2d(input_channel, wh_head_conv,
                       kernel_size=3, padding=1, bias=True),
             nn.ReLU(inplace=True),
-            nn.Conv2d(head_conv, branch_info['wh'] // K,
+            nn.Conv2d(wh_head_conv, branch_info['wh'] // K,
                       kernel_size=1, stride=1,
                       padding=0, bias=True))
         fill_fc_weights(self.wh)

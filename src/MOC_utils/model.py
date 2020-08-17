@@ -22,7 +22,7 @@ def create_inference_model(arch, branch_info, head_conv, K, flip_test=False):
     num_layers = int(arch[arch.find('_') + 1:]) if '_' in arch else 0
     arch = arch[:arch.find('_')] if '_' in arch else arch
     backbone = MOC_Backbone(arch, num_layers)
-    branch = MOC_Det(backbone, branch_info, head_conv, K, flip_test=flip_test)
+    branch = MOC_Det(backbone, branch_info, arch, head_conv, K, flip_test=flip_test)
     return backbone, branch
 
 
@@ -132,6 +132,7 @@ def load_imagenet_pretrained_model(opt, model):
         new_state_dict[new_key] = value
     if opt.print_log:
         check_state_dict(model.state_dict(), new_state_dict)
+        print('check done!')
     model.load_state_dict(new_state_dict, strict=False)
     if opt.ninput > 1:
         convert2flow(opt.ninput, model)
@@ -171,9 +172,13 @@ def load_coco_pretrained_model(opt, model):
             new_key = 'backbone.' + key
             new_state_dict[new_key] = value
 
+    if 'resnet' in opt.arch:
+        new_state_dict = convert_resnet_dcn(new_state_dict)
+
     print('load coco pretrained successfully')
     if opt.print_log:
         check_state_dict(model.state_dict(), new_state_dict)
+        print('check done!')
 
     model.load_state_dict(new_state_dict, strict=False)
     if opt.ninput > 1:
@@ -230,3 +235,14 @@ def convert2flow(ninput, model):
     setattr(container, layer_name, new_conv)
     print('load pretrained model to flow input')
     return model
+
+
+def convert_resnet_dcn(state_dict):
+    new_state_dict = {}
+    for k in state_dict:
+        if k.startswith('backbone.deconv_layer'):
+            new_k = 'backbone.deconv_layer.deconv_layers' + k.split('deconv_layers')[1]
+            new_state_dict[new_k] = state_dict[k]
+        else:
+            new_state_dict[k] = state_dict[k]
+    return new_state_dict

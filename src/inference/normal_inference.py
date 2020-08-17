@@ -13,7 +13,8 @@ from opts import opts
 from datasets.init_dataset import switch_dataset
 from detector.normal_moc_det import MOCDetector
 import random
-
+# MODIFY FOR PYTORCH 1+
+# cv2.setNumThreads(0)
 GLOBAL_SEED = 317
 
 
@@ -76,7 +77,7 @@ class PrefetchDataset(torch.utils.data.Dataset):
         return len(self.indices)
 
 
-def normal_inference(opt):
+def normal_inference(opt, drop_last=False):
     os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
     torch.backends.cudnn.benchmark = True
 
@@ -86,13 +87,14 @@ def normal_inference(opt):
     dataset = Dataset(opt, 'test')
     detector = MOCDetector(opt)
     prefetch_dataset = PrefetchDataset(opt, dataset, detector.pre_process)
+    total_num = len(prefetch_dataset)
     data_loader = torch.utils.data.DataLoader(
         prefetch_dataset,
         batch_size=opt.batch_size,
         shuffle=False,
         num_workers=opt.num_workers,
         pin_memory=opt.pin_memory,
-        drop_last=False,
+        drop_last=drop_last,
         worker_init_fn=worker_init_fn)
 
     num_iters = len(data_loader)
@@ -100,6 +102,7 @@ def normal_inference(opt):
     bar = Bar(opt.exp_id, max=num_iters)
 
     print('inference chunk_sizes:', opt.chunk_sizes)
+    print(len(data_loader))
     for iter, data in enumerate(data_loader):
         outfile = data['outfile']
 
@@ -113,3 +116,4 @@ def normal_inference(opt):
             iter, num_iters, total=bar.elapsed_td, eta=bar.eta_td)
         bar.next()
     bar.finish()
+    return total_num

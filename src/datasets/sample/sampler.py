@@ -8,7 +8,8 @@ import cv2
 import torch.utils.data as data
 from MOC_utils.gaussian_hm import gaussian_radius, draw_umich_gaussian
 from ACT_utils.ACT_aug import apply_distort, apply_expand, crop_image
-
+## MODIFY FOR PYTORCH 1+
+#cv2.setNumThreads(0)
 
 class Sampler(data.Dataset):
     def __getitem__(self, id):

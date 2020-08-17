@@ -18,6 +18,9 @@ speed_inference.py
 speed_moc_det.py
 train_jhmdb_k7_ucf_pretrain.sh
 test_video/
+old_gifs/*
 *.ipynb
 .ipynb_checkpoints/
 result_video/
+ACT2.py
+train2.py

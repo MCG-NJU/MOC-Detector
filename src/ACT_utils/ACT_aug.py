@@ -2,7 +2,8 @@ import random
 import numpy as np
 import cv2
 from .ACT_utils import iou2d
-
+## MODIFY FOR PYTORCH 1+
+#cv2.setNumThreads(0)
 
 def random_brightness(imglist, brightness_prob, brightness_delta):
     if random.random() < brightness_prob:

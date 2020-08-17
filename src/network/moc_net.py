@@ -18,7 +18,7 @@ class MOC_Net(nn.Module):
         self.flip_test = flip_test
         self.K = K
         self.backbone = backbone[arch](num_layers)
-        self.branch = MOC_Branch(self.backbone.output_channel, head_conv, branch_info, K)
+        self.branch = MOC_Branch(self.backbone.output_channel, arch, head_conv, branch_info, K)
 
     def forward(self, input):
         if self.flip_test:

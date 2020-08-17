@@ -31,23 +31,23 @@ class opts(object):
         self.parser.add_argument('--arch', default='dla_34',
                                  help='model architecture. Currently tested'
                                       'resnet_18 | resnet_101 | dla_34')
-        self.parser.add_argument('--head_conv', type=int, default=256,
+        self.parser.add_argument('--set_head_conv', type=int, default=-1,
                                  help='conv layer channels for output head'
-                                      'default setting is 256 ')
+                                      'default setting is 256 for dla and 64 for resnet ')
         self.parser.add_argument('--down_ratio', type=int, default=4,
                                  help='output stride. Currently only supports 4.')
         self.parser.add_argument('--K', type=int, default=7,
                                  help='length of action tube')
 
         # system settings
-        self.parser.add_argument('--gpus', default='0',
+        self.parser.add_argument('--gpus', default='0,1,2,3,4,5,6,7',
                                  help='visible gpu list, use comma for multiple gpus')
-        self.parser.add_argument('--num_workers', type=int, default=4,
+        self.parser.add_argument('--num_workers', type=int, default=16,
                                  help='dataloader threads. 0 for single-thread.')
-        self.parser.add_argument('--batch_size', type=int, default=16,
+        self.parser.add_argument('--batch_size', type=int, default=128,
                                  help='batch size')
         self.parser.add_argument('--master_batch_size', type=int, default=-1,
-                                 help='batch size on the master gpu.')
+                                 help='batch size on the master gpu. -1 by default')
 
         # learning rate settings
         self.parser.add_argument('--lr', type=float, default=5e-4,
@@ -130,6 +130,16 @@ class opts(object):
         opt.gpus = [i for i in range(len(opt.gpus))] if opt.gpus[0] >= 0 else [-1]
         opt.lr_step = [int(i) for i in opt.lr_step.split(',')]
 
+        if opt.set_head_conv != -1:
+            opt.head_conv = opt.set_head_conv
+        elif 'dla' in opt.arch:
+            opt.head_conv = 256
+        elif 'resnet' in opt.arch:
+            opt.head_conv = 256
+
+        if opt.ninput == 1 and opt.flow_model != '':
+            opt.ninput = 5
+
         opt.mean = [0.40789654, 0.44719302, 0.47026115]
         opt.std = [0.28863828, 0.27408164, 0.27809835]
         if opt.master_batch_size == -1:
@@ -143,8 +153,7 @@ class opts(object):
             opt.chunk_sizes.append(slave_chunk_size)
 
         opt.root_dir = os.path.join(os.path.dirname(__file__), '..')
-        opt.exp_dir = os.path.join(opt.root_dir, 'experiment', 'result_model')
-        opt.save_dir = os.path.join(opt.exp_dir, opt.exp_id)
+        opt.save_dir = opt.rgb_model if opt.rgb_model != '' else opt.flow_model
         opt.log_dir = opt.save_dir + '/logs_tensorboardX'
 
         return opt
