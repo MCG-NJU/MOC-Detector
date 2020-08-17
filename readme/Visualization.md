@@ -116,9 +116,7 @@ You can use `--instance_level` to draw these colored boxes.
   <img  src="../image/instance_Fencing.gif" width=400>
 </div>
 
-You may wonder why a man in the right gif changes its bbox color. That means one continuous action is broken into two instances by MOC because
-
- of occlusion.
+You may wonder why a man in the right gif changes its bbox color. That means one continuous action is broken into two instances by MOC because of occlusion.
 
 <br/>
 
