@@ -33,7 +33,7 @@ class opts(object):
                                       'resnet_18 | resnet_101 | dla_34')
         self.parser.add_argument('--set_head_conv', type=int, default=-1,
                                  help='conv layer channels for output head'
-                                      'default setting is 256 for dla and 64 for resnet ')
+                                      'default setting is 256 for dla and 256 for resnet(except for wh branch) ')
         self.parser.add_argument('--down_ratio', type=int, default=4,
                                  help='output stride. Currently only supports 4.')
         self.parser.add_argument('--K', type=int, default=7,
