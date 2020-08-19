@@ -165,5 +165,6 @@ def main(opt):
 
 
 if __name__ == '__main__':
+    os.system("rm -rf tmp")
     opt = opts().parse()
     main(opt)

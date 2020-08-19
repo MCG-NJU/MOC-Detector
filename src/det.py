@@ -9,6 +9,8 @@ import torch
 import random
 import time
 import numpy as np
+import os
+
 
 def set_seed(seed):
     torch.manual_seed(seed)
@@ -19,6 +21,7 @@ def set_seed(seed):
 
 
 if __name__ == '__main__':
+    os.system("rm -rf tmp")
     opt = opts().parse()
     t1 = time.time()
     set_seed(opt.seed)
