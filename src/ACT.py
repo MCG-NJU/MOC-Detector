@@ -31,6 +31,8 @@ def frameAP(opt, print_info=True):
     # load per-frame detections
     frame_detections_file = os.path.join(inference_dirname, 'frame_detections.pkl')
     if os.path.isfile(frame_detections_file) and not redo:
+        print('load previous linking results...')
+        print('if you want to reproduce it, please add --redo')
         with open(frame_detections_file, 'rb') as fid:
             alldets = pickle.load(fid)
     else:
@@ -125,6 +127,8 @@ def frameAP_error(opt, redo=False):
     eval_file = os.path.join(inference_dirname, "frameAP{:g}ErrorAnalysis.pkl".format(th))
 
     if os.path.isfile(eval_file) and not redo:
+        print('load previous linking results...')
+        print('if you want to reproduce it, please add --redo')
         with open(eval_file, 'rb') as fid:
             res = pickle.load(fid)
     else:

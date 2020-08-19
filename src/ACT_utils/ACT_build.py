@@ -63,6 +63,9 @@ def load_frame_detections(opt, dataset, K, vlist, inference_dir):
 
 def BuildTubes(opt):
     redo = opt.redo
+    if not redo:
+        print('load previous linking results...')
+        print('if you want to reproduce it, please add --redo')
     Dataset = get_dataset(opt.dataset)
     inference_dirname = opt.inference_dir
     K = opt.K
