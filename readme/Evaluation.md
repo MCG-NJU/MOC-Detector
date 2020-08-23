@@ -20,7 +20,7 @@ Our experimental results are:
 |            ucf_dla34_K7_flow_imagenet.pth             |    ImageNet    |    68.90    |     77.30 \| 47.94 \| 19.41 \| 21.98     | [model](https://drive.google.com/file/d/1QHImtoMltmeIQOYWFYqkmJ0qZEfVpUe2/view?usp=sharing) |
 |                K7 RGB + FLOW ImageNet                 |    ImageNet    |    76.92    |     81.26 \| 54.43 \| 29.49 \| 28.42     |                                                              |
 
-*Model name:  task\_(split)\_backbone_K?\_rgb\flow_pretrain.pth*
+*Model name:  `task\_(split)\_backbone_K?\_rgb\flow_pretrain.pth`*
 
 <br/>
 
@@ -37,7 +37,7 @@ Our experimental results are:
 
 All these models are available at our [Google drive](https://drive.google.com/drive/folders/1rQd79JjcQAfMxOJwXoCdh05ryOb-P1dm?usp=sharing)
 
-Copy models to ${MOC_ROOT}/experiment/result_models
+Copy models to `${MOC_ROOT}/experiment/result_models`
 
 <br/>
 
