@@ -32,7 +32,7 @@ Our experimental results are:
 |              &emsp;               |                |             |                                                              |                                                              |
 |      K7 RGB + FLOW ImageNet       |    ImageNet    |    67.95    |               76.23 \| 75.41 \| 68.46 \| 53.98               | [models](https://drive.google.com/drive/folders/1I0Pay-RaDbZTO89TOGUSGVPg736WJnRM?usp=sharing) |
 |              &emsp;               |                |             |                                                              |                                                              |
-| # *in our Supplementary Material* |                |             | (this reproduction results is slightly differnet from the original paper) |                                                              |
+| # *in our Supplementary Material* |                |             | (this reproduction result is slightly differnet from the original paper) |                                                              |
 |         K7 RGB + FLOW UCF         |      UCF       |    73.52    |               81.05 \| 80.92 \| 75.10 \| 60.65               | [models](https://drive.google.com/drive/folders/1lgWQbLNRomvatY5bGUgk2HcZYHy_GnHC?usp=sharing) |
 
 All these models are available at our [Google drive](https://drive.google.com/drive/folders/1rQd79JjcQAfMxOJwXoCdh05ryOb-P1dm?usp=sharing)

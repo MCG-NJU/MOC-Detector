@@ -35,7 +35,7 @@ Aug. 02, 2020 - Update visualization codes. Extract frames from a video and get 
 
 Aug. 17, 2020 - Now our visualization supports instance level detection results (reflects video mAP).
 
-Aug. 21, 2020 - We upload MOC with ResNet-18 in [Backbone](readme/Backbone.md).
+Aug. 23, 2020 - We upload MOC with ResNet-18 in [Backbone](readme/Backbone.md).
 
 <br/>
 
