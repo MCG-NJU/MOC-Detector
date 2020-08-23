@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
+import sys
 import os
 import numpy as np
 import torch
@@ -36,7 +36,6 @@ class PrefetchDataset(torch.utils.data.Dataset):
         self.gttubes = dataset._gttubes
         self.nframes = dataset._nframes
         self.imagefile = dataset.imagefile
-        self.flowfile = dataset.flowfile
         self.resolution = dataset._resolution
         self.input_h = dataset._resize_height
         self.input_w = dataset._resize_width
@@ -48,13 +47,10 @@ class PrefetchDataset(torch.utils.data.Dataset):
                 # if not os.path.exists(self.outfile(v, i)):
                 self.indices += [(v, i)]
         self.img_buffer = []
-        self.flow_buffer = []
         self.img_buffer_flip = []
-        self.flow_buffer_flip = []
         self.last_video = -1
         self.last_frame = -1
         self.fake_image = np.random.rand(240, 320, 3).astype(np.float32)
-        self.fake_flow = np.random.rand(240, 320, 3).astype(np.float32)
 
     def __getitem__(self, index):
         v, frame = self.indices[index]
@@ -82,16 +78,6 @@ class PrefetchDataset(torch.utils.data.Dataset):
                 else:
                     self.img_buffer = images
 
-            if self.opt.flow_model != '':
-                flows = [self.fake_flow for i in range(self.opt.K + self.opt.ninput - 1)]
-                flows = self.pre_process(flows, is_flow=True, ninput=self.opt.ninput)
-
-                if self.opt.flip_test:
-                    self.flow_buffer = flows[:self.opt.K]
-                    self.flow_buffer_flip = flows[self.opt.K:]
-                else:
-                    self.flow_buffer = flows
-
         else:
             if self.opt.rgb_model != '':
                 image = self.fake_image
@@ -105,20 +91,6 @@ class PrefetchDataset(torch.utils.data.Dataset):
                 else:
                     images = self.img_buffer
 
-            if self.opt.flow_model != '':
-                flow = self.fake_flow
-                data_last_flip = self.flow_buffer_flip[-1] if self.opt.flip_test else None
-                data_last = self.flow_buffer[-1]
-                flow, flow_flip = self.pre_process_single_frame(flow, is_flow=True, ninput=self.opt.ninput, data_last=data_last, data_last_flip=data_last_flip)
-                del self.flow_buffer[0]
-                self.flow_buffer.append(flow)
-                if self.opt.flip_test:
-                    del self.flow_buffer_flip[0]
-                    self.flow_buffer_flip.append(flow_flip)
-                    flows = self.flow_buffer + self.flow_buffer_flip
-                else:
-                    flows = self.flow_buffer
-
         return {'images': images, 'flows': flows, 'meta': {'height': h, 'width': w, 'output_height': self.output_h, 'output_width': self.output_w}, 'video_tag': video_tag}
 
     def __len__(self):
@@ -128,6 +100,9 @@ class PrefetchDataset(torch.utils.data.Dataset):
 def speed_test_stream_inference(opt):
     os.environ['CUDA_VISIBLE_DEVICES'] = "0"
     torch.backends.cudnn.benchmark = True
+    if opt.flow_model != '':
+        print('Online speed test does not support flow model.')
+        sys.exit()
 
     Dataset = switch_dataset[opt.dataset]
     opt = opts().update_dataset(opt, Dataset)

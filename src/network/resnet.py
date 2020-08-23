@@ -157,7 +157,7 @@ class MOC_ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def init_weights(self):
-        print('=> init deconv weights from normal distribution')
+        # print('=> init deconv weights from normal distribution')
         for name, m in self.deconv_layer.named_modules():
             if isinstance(m, nn.BatchNorm2d):
                 nn.init.constant_(m.weight, 1)

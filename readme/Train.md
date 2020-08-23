@@ -4,7 +4,7 @@ Firstly, download coco pretrained DLA-34 model from [this](https://drive.google.
 
 We will add more coco pretrained backbone in our [Google drive](https://drive.google.com/drive/folders/1r2uYo-4hL6oOzRARFsYIn5Pu2Lv7VS6m?usp=sharing). COCO pretrained models come from [Centernet](https://drive.google.com/open?id=1px-Xg7jXSC79QqgsD1AAGJQkuf5m0zh_).
 
-Please move pretrained model to `${MOC_ROOT}/experiment/modelzoo`
+Please move pretrained models to `${MOC_ROOT}/experiment/modelzoo`
 
 <br/>
 
@@ -166,4 +166,4 @@ For example, if we want to recovery from epoch 4, then we add `--load_model mode
 
 ## Bash File
 
-We also provide bash file for training. Please refer [train_ucf_k7.sh](../scripts/train_ucf_k7.sh) and [train_jhmdb_k7.sh](../scripts/train_jhmdb_k7.sh).
+We also provide bash file for training. Please refer [train_ucf_k7_dla.sh](../scripts/train_ucf_k7_dla.sh) and [train_jhmdb_k7_dla.sh](../scripts/train_jhmdb_k7_dla.sh).

@@ -26,14 +26,14 @@ Our experimental results are:
 
 #### JHMDB  (models for 3 splits, average results)
 
-|               Model               | Pretrain model | FrameAP@0.5 | VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95 |                           Download                           |
-| :-------------------------------: | :------------: | :---------: | :--------------------------------------: | :----------------------------------------------------------: |
-|        K7 RGB + FLOW COCO         |      COCO      |    70.79    |     77.33 \| 77.19 \| 71.69 \| 59.08     | [models](https://drive.google.com/drive/folders/1OjBMLy44kWqHeG8TXBxtF3fM-UJOTgHE?usp=sharing) |
-|              &emsp;               |                |             |                                          |                                                              |
-|      K7 RGB + FLOW ImageNet       |    ImageNet    |    67.95    |     76.23 \| 75.41 \| 68.46 \| 53.98     | [models](https://drive.google.com/drive/folders/1I0Pay-RaDbZTO89TOGUSGVPg736WJnRM?usp=sharing) |
-|              &emsp;               |                |             |                                          |                                                              |
-| # *in our Supplementary Material* |                |             |                                          |                                                              |
-|         K7 RGB + FLOW UCF         |      UCF       |    73.52    |     81.05 \| 80.92 \| 75.10 \| 60.65     | [models](https://drive.google.com/drive/folders/1lgWQbLNRomvatY5bGUgk2HcZYHy_GnHC?usp=sharing) |
+|               Model               | Pretrain model | FrameAP@0.5 |           VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95           |                           Download                           |
+| :-------------------------------: | :------------: | :---------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|        K7 RGB + FLOW COCO         |      COCO      |    70.79    |               77.33 \| 77.19 \| 71.69 \| 59.08               | [models](https://drive.google.com/drive/folders/1OjBMLy44kWqHeG8TXBxtF3fM-UJOTgHE?usp=sharing) |
+|              &emsp;               |                |             |                                                              |                                                              |
+|      K7 RGB + FLOW ImageNet       |    ImageNet    |    67.95    |               76.23 \| 75.41 \| 68.46 \| 53.98               | [models](https://drive.google.com/drive/folders/1I0Pay-RaDbZTO89TOGUSGVPg736WJnRM?usp=sharing) |
+|              &emsp;               |                |             |                                                              |                                                              |
+| # *in our Supplementary Material* |                |             | (this reproduction results is slightly differnet from the original paper) |                                                              |
+|         K7 RGB + FLOW UCF         |      UCF       |    73.52    |               81.05 \| 80.92 \| 75.10 \| 60.65               | [models](https://drive.google.com/drive/folders/1lgWQbLNRomvatY5bGUgk2HcZYHy_GnHC?usp=sharing) |
 
 All these models are available at our [Google drive](https://drive.google.com/drive/folders/1rQd79JjcQAfMxOJwXoCdh05ryOb-P1dm?usp=sharing)
 
@@ -47,7 +47,7 @@ Firstly, we will get detection results using previous models.
 
 please run
 
-~~~python
+~~~bash
 python3 det.py --task normal --K 7 --gpus 0,1,2,3,4,5,6,7 --batch_size 94 --master_batch 10 --num_workers 8 --rgb_model ../experiment/result_model/$PATH_TO_RGB_MODEL --flow_model ../experiment/result_model/$PATH_TO_FLOW_MODEL --inference_dir $INFERENCE_DIR --flip_test --ninput 5
 
 # handle remained chunk size
@@ -82,7 +82,7 @@ python3 det.py --task normal --K 7 --gpus 0 --batch_size 1 --master_batch 1 --nu
 
 More details for `flip_test` can be found in [Tips.md](Tips.md) #1.
 
-***[Attention]*** We surprisingly find that using `--N 10` and **removeing** `--flip_test` would have comparable performance but increase the inference speed. (On UCF dataset) More details are in [Tips.md](Tips.md) #4.
+***[Attention]*** We surprisingly find that using `--N 10` and **removeing** `--flip_test` would have comparable performance but increase the inference speed (On UCF dataset) .More details are in [Tips.md](Tips.md) #4.
 
 <br/>
 
@@ -98,11 +98,13 @@ We use the evaluation code from [ACT](https://github.com/vkalogeiton/caffe/tree/
 
 The evalution time will depend on CPU. 
 
+If you want a faster evaluation, please choose a small `--N` during inference step.
+
 <br/>
 
 1. For frame mAP, please run:
 
-```python
+```bash
 python3 ACT.py --task frameAP --K 7 --th 0.5 --inference_dir $INFERENCE_DIR
 ```
 
@@ -112,13 +114,13 @@ Choose a small `--N` when inference will speed up this step. More details an be 
 
 2. For video mAP, please build tubes first:
 
-```python
+```bash
 python3 ACT.py --task BuildTubes --K 7 --inference_dir $INFERENCE_DIR
 ```
 
 Then, compute video mAP:
 
-```python
+```bash
 # change --th
 python3 ACT.py --task videoAP --K 7 --th 0.2 --inference_dir $INFERENCE_DIR
 
@@ -157,7 +159,7 @@ Each backbone feature will compute only once and save in a buffer, which avoids 
 
 please run:
 
-```python
+```bash
 python3 det.py --task stream --K 7 --gpus 0 --batch_size 1 --master_batch 1 --num_workers 0 --rgb_model ../experiment/result_model/$PATH_TO_RGB_MODEL --inference_dir $INFERENCE_DIR --dataset hmdb --split 1 --flip_test
 ```
 
@@ -173,7 +175,7 @@ It can be modified for real-time video stream.
 
 We provide codes for testing our online detection FPS (Tubelets Per Seconds, actually).
 
-```python
+```bash
 python3 det.py --task speed_test --K 7 --gpus 0 --batch_size 1 --master_batch 1 --num_workers 0
 --rgb_model ../experiment/result_model/$PATH_TO_RGB_MODEL --inference_dir $INFERENCE_DIR
 ```
@@ -192,3 +194,8 @@ On a single NVIDIA TITAN Xp with `batch size = 1`, our online detection results 
 
 We also provide bash file for evaluation. Please refer [ucf_normal_inference.sh](../scripts/ucf_normal_inference.sh) and [jhmdb_stream_inference.sh](../scripts/jhmdb_stream_inference.sh).
 
+
+
+## Other Backbone
+
+Now we support DLA-34 and ResNet-18. Please refer to [Backbone](Backbone.md).
