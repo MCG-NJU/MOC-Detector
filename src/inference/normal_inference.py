@@ -78,7 +78,6 @@ class PrefetchDataset(torch.utils.data.Dataset):
 
 
 def normal_inference(opt, drop_last=False):
-    os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
     torch.backends.cudnn.benchmark = True
 
     Dataset = switch_dataset[opt.dataset]

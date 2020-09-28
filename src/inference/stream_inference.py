@@ -134,7 +134,7 @@ class PrefetchDataset(torch.utils.data.Dataset):
 
 
 def stream_inference(opt):
-    os.environ['CUDA_VISIBLE_DEVICES'] = "0"
+    assert len(opt.gpus_str.split(',')) == 1
     # torch.backends.cudnn.benchmark = True
 
     Dataset = switch_dataset[opt.dataset]

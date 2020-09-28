@@ -9,7 +9,6 @@ import numpy as np
 import torch
 
 from MOC_utils.model import create_inference_model, load_inference_model, convert2flow
-from MOC_utils.data_parallel import DataParallel
 from .decode import moc_decode
 from MOC_utils.utils import flip_tensor
 
@@ -28,12 +27,8 @@ class MOCDetector(object):
             print('create rgb model', flush=True)
             self.rgb_model_backbone, self.rgb_model_branch = load_inference_model(self.rgb_model_backbone, self.rgb_model_branch, opt.rgb_model)
             print('load rgb model', flush=True)
-            self.rgb_model_backbone = DataParallel(
-                self.rgb_model_backbone, device_ids=[opt.gpus[0]],
-                chunk_sizes=[1]).to(opt.device)
-            self.rgb_model_branch = DataParallel(
-                self.rgb_model_branch, device_ids=[opt.gpus[0]],
-                chunk_sizes=[1]).to(opt.device)
+            self.rgb_model_backbone = self.rgb_model_backbone.to(opt.device)
+            self.rgb_model_branch = self.rgb_model_branch.to(opt.device)
             print('put rgb model to gpu', flush=True)
             self.rgb_model_backbone.eval()
             self.rgb_model_branch.eval()
@@ -43,12 +38,8 @@ class MOCDetector(object):
             print('create flow model', flush=True)
             self.flow_model_backbone, self.flow_model_branch = load_inference_model(self.flow_model_backbone, self.flow_model_branch, opt.flow_model)
             print('load flow model', flush=True)
-            self.flow_model_backbone = DataParallel(
-                self.flow_model_backbone, device_ids=[opt.gpus[0]],
-                chunk_sizes=[1]).to(opt.device)
-            self.flow_model_branch = DataParallel(
-                self.flow_model_branch, device_ids=[opt.gpus[0]],
-                chunk_sizes=[1]).to(opt.device)
+            self.flow_model_backbone = self.flow_model_backbone.to(opt.device)
+            self.flow_model_branch = self.flow_model_branch.to(opt.device)
             print('put flow model to gpu', flush=True)
             self.flow_model_backbone.eval()
             self.flow_model_branch.eval()

@@ -28,7 +28,7 @@ def create_inference_model(arch, branch_info, head_conv, K, flip_test=False):
 
 def load_model(model, model_path, optimizer=None, lr=None, ucf_pretrain=False):
     start_epoch = 0
-    checkpoint = torch.load(model_path, map_location=lambda storage, loc: storage)
+    checkpoint = torch.load(model_path, map_location='cpu')
     print('loaded {}, epoch {}'.format(model_path, checkpoint['epoch']))
     state_dict_ = checkpoint['state_dict']
     state_dict = {}
@@ -67,7 +67,7 @@ def load_model(model, model_path, optimizer=None, lr=None, ucf_pretrain=False):
 
 
 def load_inference_model(backbone, branch, model_path):
-    checkpoint = torch.load(model_path, map_location=lambda storage, loc: storage)
+    checkpoint = torch.load(model_path, map_location='cpu')
     print('loaded {}, epoch {}'.format(model_path, checkpoint['epoch']))
     state_dict_ = checkpoint['state_dict']
     state_dict = {}
@@ -152,7 +152,7 @@ def load_coco_pretrained_model(opt, model):
         model_path = '../experiment/modelzoo/coco_resdcn101.pth'
     else:
         raise NotImplementedError
-    checkpoint = torch.load(model_path, map_location=lambda storage, loc: storage)
+    checkpoint = torch.load(model_path, map_location='cpu')
     print('loaded {}, epoch {}'.format(model_path, checkpoint['epoch']))
     state_dict_ = checkpoint['state_dict']
     state_dict = {}

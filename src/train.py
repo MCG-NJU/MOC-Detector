@@ -49,8 +49,7 @@ def main(opt):
 
     logger = Logger(opt, epoch_train_writer, epoch_val_writer)
 
-    os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
-    opt.device = torch.device('cuda' if opt.gpus[0] >= 0 else 'cpu')
+    opt.device = torch.device('cuda')
 
     model = create_model(opt.arch, opt.branch_info, opt.head_conv, opt.K)
     optimizer = torch.optim.Adam(model.parameters(), opt.lr)

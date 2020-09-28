@@ -127,7 +127,7 @@ class opts(object):
 
         opt.gpus_str = opt.gpus
         opt.gpus = [int(gpu) for gpu in opt.gpus.split(',')]
-        opt.gpus = [i for i in range(len(opt.gpus))] if opt.gpus[0] >= 0 else [-1]
+        opt.gpus = [i for i in range(len(opt.gpus))]
         opt.lr_step = [int(i) for i in opt.lr_step.split(',')]
 
         if opt.set_head_conv != -1:

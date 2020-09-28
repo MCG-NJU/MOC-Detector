@@ -98,7 +98,7 @@ class PrefetchDataset(torch.utils.data.Dataset):
 
 
 def speed_test_stream_inference(opt):
-    os.environ['CUDA_VISIBLE_DEVICES'] = "0"
+    assert len(opt.gpus_str.split(',')) == 1
     torch.backends.cudnn.benchmark = True
     if opt.flow_model != '':
         print('Online speed test does not support flow model.')
