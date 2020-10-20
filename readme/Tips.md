@@ -50,4 +50,15 @@ Old video's feature is not continuity for new video, so the feature buffer will 
 |         N=100    with flip          |    78.01    |     82.81 \| 53.83 \| 29.59 \| 28.33     |
 |         N=10   without flip         |    77.43    |     83.08 \| 53.89 \| 29.49 \| 28.22     |
 
-The new results are acceptable on UCF dataset. Moreover the boosting on inference speed is remarkable. (about **x1.8** for inference step and **x5.5** for build step)
+
+
+| Results on UCF (K7 RGB) | FrameAP@0.5 | VideoAP@0.2 \| @0.5 \| @0.75 \| 0.5:0.95 |
+| :---------------------: | :---------: | :--------------------------------------: |
+|   N=100    with flip    |    73.14    |     78.81 \| 51.02 \| 27.05 \| 26.51     |
+|   N=10   without flip   |    72.05    |     78.23 \| 50.77 \| 26.10 \| 26.16     |
+
+
+
+The new results are acceptable on UCF dataset. (The performance gap is 0.5-1.5)
+
+Moreover the boosting on inference speed is remarkable. (about **x1.8** for inference step and **x5.5** for build step)

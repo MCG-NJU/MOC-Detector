@@ -82,7 +82,7 @@ python3 det.py --task normal --K 7 --gpus 0 --batch_size 1 --master_batch 1 --nu
 
 More details for `flip_test` can be found in [Tips.md](Tips.md) #1.
 
-***[Attention]*** We surprisingly find that using `--N 10` and **removeing** `--flip_test` would have comparable performance but increase the inference speed (On UCF dataset). More details are in [Tips.md](Tips.md) #4.
+***[Attention]*** Using `--N 10` and **removeing** `--flip_test` will  increase the inference speed but get a lower performance. More details are in [Tips.md](Tips.md) #4.
 
 <br/>
 

@@ -24,13 +24,13 @@ def _topN(scores, N=40):
     topk_scores, topk_index = torch.topk(scores.view(batch, cat, -1), N)
 
     topk_index = topk_index % (height * width)
-    topk_ys = (topk_index / width).int().float()
+    topk_ys = (topk_index // width).int().float()
     topk_xs = (topk_index % width).int().float()
 
     # cross class, top N    [b, N]
     topk_score, topk_ind = torch.topk(topk_scores.view(batch, -1), N)
 
-    topk_classes = (topk_ind / N).int()
+    topk_classes = (topk_ind // N).int()
     topk_index = _gather_feature(topk_index.view(batch, -1, 1), topk_ind).view(batch, N)
     topk_ys = _gather_feature(topk_ys.view(batch, -1, 1), topk_ind).view(batch, N)
     topk_xs = _gather_feature(topk_xs.view(batch, -1, 1), topk_ind).view(batch, N)
