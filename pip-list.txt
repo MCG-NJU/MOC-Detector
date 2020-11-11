@@ -4,8 +4,6 @@ tensorflow
 
 tensorboardX
 
-pickle
-
 progress
 
 h5py
