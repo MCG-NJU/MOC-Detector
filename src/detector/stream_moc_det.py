@@ -64,7 +64,7 @@ class MOCDetector(object):
     def pre_process(self, images, is_flow=False, ninput=1):
 
         K = self.opt.K
-        images = [cv2.resize(im, (self.opt.resize_height, self.opt.resize_width), interpolation=cv2.INTER_LINEAR) for im in images]
+        images = [cv2.resize(im, (self.opt.resize_width, self.opt.resize_height), interpolation=cv2.INTER_LINEAR) for im in images]
 
         if self.opt.flip_test:
             data = [np.empty((3 * ninput, self.opt.resize_height, self.opt.resize_width), dtype=np.float32) for i in range(K * 2)]
